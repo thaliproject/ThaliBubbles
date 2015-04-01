@@ -1,0 +1,617 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		97CE6C8B995B6AE0706977FE /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C8577C46CE8D74B291AEEFC7 /* libPods.a */; };
+		D30207801AC2F2A300E70110 /* TSNBubbleView.m in Sources */ = {isa = PBXBuildFile; fileRef = D302077E1AC2F2A300E70110 /* TSNBubbleView.m */; };
+		D30207851AC2FAF700E70110 /* TSNSettingsView.m in Sources */ = {isa = PBXBuildFile; fileRef = D30207831AC2FAF700E70110 /* TSNSettingsView.m */; };
+		D30207891AC31EC200E70110 /* TSNBubbleViewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D30207871AC31EC200E70110 /* TSNBubbleViewTableViewCell.m */; };
+		D302078D1AC36F2E00E70110 /* TSNAppContext.m in Sources */ = {isa = PBXBuildFile; fileRef = D302078C1AC36F2E00E70110 /* TSNAppContext.m */; };
+		D32FABE81AC4A1F8005C0AF4 /* CBPeripheralManager+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = D32FABE71AC4A1F8005C0AF4 /* CBPeripheralManager+Extensions.m */; };
+		D32FABF11AC4AB92005C0AF4 /* CBCentralManager+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = D32FABF01AC4AB92005C0AF4 /* CBCentralManager+Extensions.m */; };
+		D32FABF51AC4B458005C0AF4 /* TSNLocationContext.m in Sources */ = {isa = PBXBuildFile; fileRef = D32FABF41AC4B458005C0AF4 /* TSNLocationContext.m */; };
+		D333281D1AC1D6CF009F3F9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D333281C1AC1D6CF009F3F9A /* Images.xcassets */; };
+		D33328231AC1D839009F3F9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D33328221AC1D839009F3F9A /* main.m */; };
+		D33328271AC1D880009F3F9A /* TSNAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D33328261AC1D880009F3F9A /* TSNAppDelegate.m */; };
+		D333282C1AC1D8B0009F3F9A /* TSNAppView.m in Sources */ = {isa = PBXBuildFile; fileRef = D333282B1AC1D8B0009F3F9A /* TSNAppView.m */; };
+		D33328311AC1D8C8009F3F9A /* TSNAppViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D333282F1AC1D8C8009F3F9A /* TSNAppViewController.m */; };
+		D33328351AC1D8E0009F3F9A /* TSNAppWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = D33328341AC1D8E0009F3F9A /* TSNAppWindow.m */; };
+		D33935881AC9CEE7004B57BB /* TSNPeerAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = D33935871AC9CEE7004B57BB /* TSNPeerAnnotation.m */; };
+		D339358C1AC9DF1E004B57BB /* TSNPeer.m in Sources */ = {isa = PBXBuildFile; fileRef = D339358B1AC9DF1E004B57BB /* TSNPeer.m */; };
+		D36385BA1ACAE8C600BA95F1 /* CBPeripheral+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = D36385B91ACAE8C600BA95F1 /* CBPeripheral+Extensions.m */; };
+		D3D95F041AC58C7C00278A40 /* TSNPeerNetworkingContext.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D95F021AC58C7C00278A40 /* TSNPeerNetworkingContext.m */; };
+		D3D95F071AC58D1700278A40 /* TSNPeerBluetoothContext.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D95F061AC58D1700278A40 /* TSNPeerBluetoothContext.m */; };
+		D3D95F0E1AC71B1600278A40 /* TSNNearbyPeersView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D95F0C1AC71B1600278A40 /* TSNNearbyPeersView.m */; };
+		D3D95F111AC72A6100278A40 /* TSNMeAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D95F101AC72A6100278A40 /* TSNMeAnnotation.m */; };
+		D3F583B91AC1BE7000479CEE /* ThaliBubbles.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D3F583B71AC1BE7000479CEE /* ThaliBubbles.xcdatamodeld */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		04DDD68A05383B01ADC6A075 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		91773E6A66D910D57CC3D522 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		C8577C46CE8D74B291AEEFC7 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		D302077D1AC2F2A300E70110 /* TSNBubbleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TSNBubbleView.h; path = Code/UI/TSNBubbleView.h; sourceTree = "<group>"; };
+		D302077E1AC2F2A300E70110 /* TSNBubbleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TSNBubbleView.m; path = Code/UI/TSNBubbleView.m; sourceTree = "<group>"; };
+		D302077F1AC2F2A300E70110 /* TSNBubbleViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TSNBubbleViewDelegate.h; path = Code/UI/TSNBubbleViewDelegate.h; sourceTree = "<group>"; };
+		D30207821AC2FAF700E70110 /* TSNSettingsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TSNSettingsView.h; path = Code/UI/TSNSettingsView.h; sourceTree = "<group>"; };
+		D30207831AC2FAF700E70110 /* TSNSettingsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TSNSettingsView.m; path = Code/UI/TSNSettingsView.m; sourceTree = "<group>"; };
+		D30207841AC2FAF700E70110 /* TSNSettingsViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TSNSettingsViewDelegate.h; path = Code/UI/TSNSettingsViewDelegate.h; sourceTree = "<group>"; };
+		D30207861AC31EC200E70110 /* TSNBubbleViewTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TSNBubbleViewTableViewCell.h; path = Code/UI/TSNBubbleViewTableViewCell.h; sourceTree = "<group>"; };
+		D30207871AC31EC200E70110 /* TSNBubbleViewTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TSNBubbleViewTableViewCell.m; path = Code/UI/TSNBubbleViewTableViewCell.m; sourceTree = "<group>"; };
+		D30207881AC31EC200E70110 /* TSNBubbleViewTableViewCellDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TSNBubbleViewTableViewCellDelegate.h; path = Code/UI/TSNBubbleViewTableViewCellDelegate.h; sourceTree = "<group>"; };
+		D302078B1AC36F2E00E70110 /* TSNAppContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TSNAppContext.h; path = Code/AppContext/TSNAppContext.h; sourceTree = "<group>"; };
+		D302078C1AC36F2E00E70110 /* TSNAppContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TSNAppContext.m; path = Code/AppContext/TSNAppContext.m; sourceTree = "<group>"; };
+		D32FABE61AC4A1F8005C0AF4 /* CBPeripheralManager+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "CBPeripheralManager+Extensions.h"; path = "Code/Extensions/CBPeripheralManager+Extensions.h"; sourceTree = "<group>"; };
+		D32FABE71AC4A1F8005C0AF4 /* CBPeripheralManager+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CBPeripheralManager+Extensions.m"; path = "Code/Extensions/CBPeripheralManager+Extensions.m"; sourceTree = "<group>"; };
+		D32FABEF1AC4AB92005C0AF4 /* CBCentralManager+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "CBCentralManager+Extensions.h"; path = "Code/Extensions/CBCentralManager+Extensions.h"; sourceTree = "<group>"; };
+		D32FABF01AC4AB92005C0AF4 /* CBCentralManager+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CBCentralManager+Extensions.m"; path = "Code/Extensions/CBCentralManager+Extensions.m"; sourceTree = "<group>"; };
+		D32FABF31AC4B458005C0AF4 /* TSNLocationContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TSNLocationContext.h; path = Code/LocationContext/TSNLocationContext.h; sourceTree = "<group>"; };
+		D32FABF41AC4B458005C0AF4 /* TSNLocationContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TSNLocationContext.m; path = Code/LocationContext/TSNLocationContext.m; sourceTree = "<group>"; };
+		D333281C1AC1D6CF009F3F9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Assets/Images.xcassets; sourceTree = "<group>"; };
+		D333281F1AC1D6ED009F3F9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Assets/PropertyLists/Info.plist; sourceTree = "<group>"; };
+		D33328221AC1D839009F3F9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Code/App/main.m; sourceTree = "<group>"; };
+		D33328251AC1D880009F3F9A /* TSNAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TSNAppDelegate.h; path = Code/AppDelegate/TSNAppDelegate.h; sourceTree = "<group>"; };
+		D33328261AC1D880009F3F9A /* TSNAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TSNAppDelegate.m; path = Code/AppDelegate/TSNAppDelegate.m; sourceTree = "<group>"; };
+		D333282A1AC1D8B0009F3F9A /* TSNAppView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TSNAppView.h; path = Code/UI/TSNAppView.h; sourceTree = "<group>"; };
+		D333282B1AC1D8B0009F3F9A /* TSNAppView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TSNAppView.m; path = Code/UI/TSNAppView.m; sourceTree = "<group>"; };
+		D333282E1AC1D8C8009F3F9A /* TSNAppViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TSNAppViewController.h; path = Code/UI/TSNAppViewController.h; sourceTree = "<group>"; };
+		D333282F1AC1D8C8009F3F9A /* TSNAppViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TSNAppViewController.m; path = Code/UI/TSNAppViewController.m; sourceTree = "<group>"; };
+		D33328301AC1D8C8009F3F9A /* TSNAppViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TSNAppViewDelegate.h; path = Code/UI/TSNAppViewDelegate.h; sourceTree = "<group>"; };
+		D33328331AC1D8E0009F3F9A /* TSNAppWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TSNAppWindow.h; path = Code/UI/TSNAppWindow.h; sourceTree = "<group>"; };
+		D33328341AC1D8E0009F3F9A /* TSNAppWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TSNAppWindow.m; path = Code/UI/TSNAppWindow.m; sourceTree = "<group>"; };
+		D33935861AC9CEE7004B57BB /* TSNPeerAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TSNPeerAnnotation.h; path = Code/UI/TSNPeerAnnotation.h; sourceTree = "<group>"; };
+		D33935871AC9CEE7004B57BB /* TSNPeerAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TSNPeerAnnotation.m; path = Code/UI/TSNPeerAnnotation.m; sourceTree = "<group>"; };
+		D339358A1AC9DF1E004B57BB /* TSNPeer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TSNPeer.h; path = Code/Peer/TSNPeer.h; sourceTree = "<group>"; };
+		D339358B1AC9DF1E004B57BB /* TSNPeer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TSNPeer.m; path = Code/Peer/TSNPeer.m; sourceTree = "<group>"; };
+		D36385B81ACAE8C600BA95F1 /* CBPeripheral+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "CBPeripheral+Extensions.h"; path = "Code/Extensions/CBPeripheral+Extensions.h"; sourceTree = "<group>"; };
+		D36385B91ACAE8C600BA95F1 /* CBPeripheral+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CBPeripheral+Extensions.m"; path = "Code/Extensions/CBPeripheral+Extensions.m"; sourceTree = "<group>"; };
+		D3D95F011AC58C7C00278A40 /* TSNPeerNetworkingContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TSNPeerNetworkingContext.h; path = Code/PeerNetworkingContext/TSNPeerNetworkingContext.h; sourceTree = "<group>"; };
+		D3D95F021AC58C7C00278A40 /* TSNPeerNetworkingContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TSNPeerNetworkingContext.m; path = Code/PeerNetworkingContext/TSNPeerNetworkingContext.m; sourceTree = "<group>"; };
+		D3D95F031AC58C7C00278A40 /* TSNPeerNetworkingContextDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TSNPeerNetworkingContextDelegate.h; path = Code/PeerNetworkingContext/TSNPeerNetworkingContextDelegate.h; sourceTree = "<group>"; };
+		D3D95F051AC58D1700278A40 /* TSNPeerBluetoothContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TSNPeerBluetoothContext.h; path = Code/PeerBluetoothContext/TSNPeerBluetoothContext.h; sourceTree = "<group>"; };
+		D3D95F061AC58D1700278A40 /* TSNPeerBluetoothContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TSNPeerBluetoothContext.m; path = Code/PeerBluetoothContext/TSNPeerBluetoothContext.m; sourceTree = "<group>"; };
+		D3D95F081AC58D3F00278A40 /* TSNPeerBluetoothContextDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TSNPeerBluetoothContextDelegate.h; path = Code/PeerBluetoothContext/TSNPeerBluetoothContextDelegate.h; sourceTree = "<group>"; };
+		D3D95F091AC59FE900278A40 /* TSNLocationContextDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TSNLocationContextDelegate.h; path = Code/LocationContext/TSNLocationContextDelegate.h; sourceTree = "<group>"; };
+		D3D95F0B1AC71B1600278A40 /* TSNNearbyPeersView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TSNNearbyPeersView.h; path = Code/UI/TSNNearbyPeersView.h; sourceTree = "<group>"; };
+		D3D95F0C1AC71B1600278A40 /* TSNNearbyPeersView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TSNNearbyPeersView.m; path = Code/UI/TSNNearbyPeersView.m; sourceTree = "<group>"; };
+		D3D95F0D1AC71B1600278A40 /* TSNNearbyPeersViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TSNNearbyPeersViewDelegate.h; path = Code/UI/TSNNearbyPeersViewDelegate.h; sourceTree = "<group>"; };
+		D3D95F0F1AC72A6100278A40 /* TSNMeAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TSNMeAnnotation.h; path = Code/UI/TSNMeAnnotation.h; sourceTree = "<group>"; };
+		D3D95F101AC72A6100278A40 /* TSNMeAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TSNMeAnnotation.m; path = Code/UI/TSNMeAnnotation.m; sourceTree = "<group>"; };
+		D3F583AD1AC1BE7000479CEE /* ThaliBubbles.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ThaliBubbles.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D3F583B81AC1BE7000479CEE /* ThaliBubbles.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ThaliBubbles.xcdatamodel; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D3F583AA1AC1BE7000479CEE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				97CE6C8B995B6AE0706977FE /* libPods.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		83FE60B74CD5A41F4F58FB7F /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				04DDD68A05383B01ADC6A075 /* Pods.debug.xcconfig */,
+				91773E6A66D910D57CC3D522 /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		D30207781AC203E400E70110 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				D32FABE61AC4A1F8005C0AF4 /* CBPeripheralManager+Extensions.h */,
+				D32FABE71AC4A1F8005C0AF4 /* CBPeripheralManager+Extensions.m */,
+				D32FABEF1AC4AB92005C0AF4 /* CBCentralManager+Extensions.h */,
+				D32FABF01AC4AB92005C0AF4 /* CBCentralManager+Extensions.m */,
+				D36385B81ACAE8C600BA95F1 /* CBPeripheral+Extensions.h */,
+				D36385B91ACAE8C600BA95F1 /* CBPeripheral+Extensions.m */,
+			);
+			name = Extensions;
+			sourceTree = "<group>";
+		};
+		D302077C1AC2F28100E70110 /* BubbleView */ = {
+			isa = PBXGroup;
+			children = (
+				D302077D1AC2F2A300E70110 /* TSNBubbleView.h */,
+				D302077E1AC2F2A300E70110 /* TSNBubbleView.m */,
+				D302077F1AC2F2A300E70110 /* TSNBubbleViewDelegate.h */,
+				D30207861AC31EC200E70110 /* TSNBubbleViewTableViewCell.h */,
+				D30207871AC31EC200E70110 /* TSNBubbleViewTableViewCell.m */,
+				D30207881AC31EC200E70110 /* TSNBubbleViewTableViewCellDelegate.h */,
+			);
+			name = BubbleView;
+			sourceTree = "<group>";
+		};
+		D30207811AC2FAE100E70110 /* SettingsView */ = {
+			isa = PBXGroup;
+			children = (
+				D30207821AC2FAF700E70110 /* TSNSettingsView.h */,
+				D30207831AC2FAF700E70110 /* TSNSettingsView.m */,
+				D30207841AC2FAF700E70110 /* TSNSettingsViewDelegate.h */,
+			);
+			name = SettingsView;
+			sourceTree = "<group>";
+		};
+		D302078A1AC36F0D00E70110 /* AppContext */ = {
+			isa = PBXGroup;
+			children = (
+				D302078B1AC36F2E00E70110 /* TSNAppContext.h */,
+				D302078C1AC36F2E00E70110 /* TSNAppContext.m */,
+			);
+			name = AppContext;
+			sourceTree = "<group>";
+		};
+		D32FABF21AC4B433005C0AF4 /* LocationContext */ = {
+			isa = PBXGroup;
+			children = (
+				D32FABF31AC4B458005C0AF4 /* TSNLocationContext.h */,
+				D32FABF41AC4B458005C0AF4 /* TSNLocationContext.m */,
+				D3D95F091AC59FE900278A40 /* TSNLocationContextDelegate.h */,
+			);
+			name = LocationContext;
+			sourceTree = "<group>";
+		};
+		D333281A1AC1D69F009F3F9A /* Code */ = {
+			isa = PBXGroup;
+			children = (
+				D33328211AC1D820009F3F9A /* App */,
+				D302078A1AC36F0D00E70110 /* AppContext */,
+				D33328241AC1D851009F3F9A /* AppDelegate */,
+				D30207781AC203E400E70110 /* Extensions */,
+				D32FABF21AC4B433005C0AF4 /* LocationContext */,
+				D33935891AC9DEC1004B57BB /* Peer */,
+				D3D95F001AC58C2200278A40 /* PeerBluetoothContext */,
+				D3D95EFF1AC58C1000278A40 /* PeerNetworkingContext */,
+				D33328281AC1D889009F3F9A /* UI */,
+			);
+			name = Code;
+			sourceTree = "<group>";
+		};
+		D333281B1AC1D6BB009F3F9A /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				D333281C1AC1D6CF009F3F9A /* Images.xcassets */,
+				D333281E1AC1D6DE009F3F9A /* PropertyLists */,
+			);
+			name = Assets;
+			sourceTree = "<group>";
+		};
+		D333281E1AC1D6DE009F3F9A /* PropertyLists */ = {
+			isa = PBXGroup;
+			children = (
+				D333281F1AC1D6ED009F3F9A /* Info.plist */,
+			);
+			name = PropertyLists;
+			sourceTree = "<group>";
+		};
+		D33328211AC1D820009F3F9A /* App */ = {
+			isa = PBXGroup;
+			children = (
+				D33328221AC1D839009F3F9A /* main.m */,
+			);
+			name = App;
+			sourceTree = "<group>";
+		};
+		D33328241AC1D851009F3F9A /* AppDelegate */ = {
+			isa = PBXGroup;
+			children = (
+				D33328251AC1D880009F3F9A /* TSNAppDelegate.h */,
+				D33328261AC1D880009F3F9A /* TSNAppDelegate.m */,
+			);
+			name = AppDelegate;
+			sourceTree = "<group>";
+		};
+		D33328281AC1D889009F3F9A /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				D33328291AC1D89C009F3F9A /* AppView */,
+				D333282D1AC1D8B6009F3F9A /* AppViewController */,
+				D33328321AC1D8CE009F3F9A /* AppWindow */,
+				D302077C1AC2F28100E70110 /* BubbleView */,
+				D3D95F0A1AC7191B00278A40 /* NearbyPeersView */,
+				D30207811AC2FAE100E70110 /* SettingsView */,
+			);
+			name = UI;
+			sourceTree = "<group>";
+		};
+		D33328291AC1D89C009F3F9A /* AppView */ = {
+			isa = PBXGroup;
+			children = (
+				D333282A1AC1D8B0009F3F9A /* TSNAppView.h */,
+				D333282B1AC1D8B0009F3F9A /* TSNAppView.m */,
+			);
+			name = AppView;
+			sourceTree = "<group>";
+		};
+		D333282D1AC1D8B6009F3F9A /* AppViewController */ = {
+			isa = PBXGroup;
+			children = (
+				D333282E1AC1D8C8009F3F9A /* TSNAppViewController.h */,
+				D333282F1AC1D8C8009F3F9A /* TSNAppViewController.m */,
+				D33328301AC1D8C8009F3F9A /* TSNAppViewDelegate.h */,
+			);
+			name = AppViewController;
+			sourceTree = "<group>";
+		};
+		D33328321AC1D8CE009F3F9A /* AppWindow */ = {
+			isa = PBXGroup;
+			children = (
+				D33328331AC1D8E0009F3F9A /* TSNAppWindow.h */,
+				D33328341AC1D8E0009F3F9A /* TSNAppWindow.m */,
+			);
+			name = AppWindow;
+			sourceTree = "<group>";
+		};
+		D33935891AC9DEC1004B57BB /* Peer */ = {
+			isa = PBXGroup;
+			children = (
+				D339358A1AC9DF1E004B57BB /* TSNPeer.h */,
+				D339358B1AC9DF1E004B57BB /* TSNPeer.m */,
+			);
+			name = Peer;
+			sourceTree = "<group>";
+		};
+		D3D95EFF1AC58C1000278A40 /* PeerNetworkingContext */ = {
+			isa = PBXGroup;
+			children = (
+				D3D95F011AC58C7C00278A40 /* TSNPeerNetworkingContext.h */,
+				D3D95F021AC58C7C00278A40 /* TSNPeerNetworkingContext.m */,
+				D3D95F031AC58C7C00278A40 /* TSNPeerNetworkingContextDelegate.h */,
+			);
+			name = PeerNetworkingContext;
+			sourceTree = "<group>";
+		};
+		D3D95F001AC58C2200278A40 /* PeerBluetoothContext */ = {
+			isa = PBXGroup;
+			children = (
+				D3D95F051AC58D1700278A40 /* TSNPeerBluetoothContext.h */,
+				D3D95F061AC58D1700278A40 /* TSNPeerBluetoothContext.m */,
+				D3D95F081AC58D3F00278A40 /* TSNPeerBluetoothContextDelegate.h */,
+			);
+			name = PeerBluetoothContext;
+			sourceTree = "<group>";
+		};
+		D3D95F0A1AC7191B00278A40 /* NearbyPeersView */ = {
+			isa = PBXGroup;
+			children = (
+				D3D95F0B1AC71B1600278A40 /* TSNNearbyPeersView.h */,
+				D3D95F0C1AC71B1600278A40 /* TSNNearbyPeersView.m */,
+				D3D95F0D1AC71B1600278A40 /* TSNNearbyPeersViewDelegate.h */,
+				D3D95F0F1AC72A6100278A40 /* TSNMeAnnotation.h */,
+				D3D95F101AC72A6100278A40 /* TSNMeAnnotation.m */,
+				D33935861AC9CEE7004B57BB /* TSNPeerAnnotation.h */,
+				D33935871AC9CEE7004B57BB /* TSNPeerAnnotation.m */,
+			);
+			name = NearbyPeersView;
+			sourceTree = "<group>";
+		};
+		D3F583A41AC1BE7000479CEE = {
+			isa = PBXGroup;
+			children = (
+				D3F583AF1AC1BE7000479CEE /* ThaliBubbles */,
+				D3F583AE1AC1BE7000479CEE /* Products */,
+				83FE60B74CD5A41F4F58FB7F /* Pods */,
+				D4440AF6DA35E17E75C051DC /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		D3F583AE1AC1BE7000479CEE /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D3F583AD1AC1BE7000479CEE /* ThaliBubbles.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D3F583AF1AC1BE7000479CEE /* ThaliBubbles */ = {
+			isa = PBXGroup;
+			children = (
+				D333281B1AC1D6BB009F3F9A /* Assets */,
+				D333281A1AC1D69F009F3F9A /* Code */,
+				D3F583B71AC1BE7000479CEE /* ThaliBubbles.xcdatamodeld */,
+				D3F583B01AC1BE7000479CEE /* Supporting Files */,
+			);
+			path = ThaliBubbles;
+			sourceTree = "<group>";
+		};
+		D3F583B01AC1BE7000479CEE /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		D4440AF6DA35E17E75C051DC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C8577C46CE8D74B291AEEFC7 /* libPods.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D3F583AC1AC1BE7000479CEE /* ThaliBubbles */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D3F583D31AC1BE7000479CEE /* Build configuration list for PBXNativeTarget "ThaliBubbles" */;
+			buildPhases = (
+				881E7CC8769BB65BEAA08D5C /* Check Pods Manifest.lock */,
+				D3F583A91AC1BE7000479CEE /* Sources */,
+				D3F583AA1AC1BE7000479CEE /* Frameworks */,
+				D3F583AB1AC1BE7000479CEE /* Resources */,
+				613CB6B4E25498409A01D95A /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ThaliBubbles;
+			productName = ThaliBubbles;
+			productReference = D3F583AD1AC1BE7000479CEE /* ThaliBubbles.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D3F583A51AC1BE7000479CEE /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = TSN;
+				LastUpgradeCheck = 0620;
+				ORGANIZATIONNAME = Microsoft;
+				TargetAttributes = {
+					D3F583AC1AC1BE7000479CEE = {
+						CreatedOnToolsVersion = 6.2;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
+					};
+				};
+			};
+			buildConfigurationList = D3F583A81AC1BE7000479CEE /* Build configuration list for PBXProject "ThaliBubbles" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = D3F583A41AC1BE7000479CEE;
+			productRefGroup = D3F583AE1AC1BE7000479CEE /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D3F583AC1AC1BE7000479CEE /* ThaliBubbles */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D3F583AB1AC1BE7000479CEE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D333281D1AC1D6CF009F3F9A /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		613CB6B4E25498409A01D95A /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		881E7CC8769BB65BEAA08D5C /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D3F583A91AC1BE7000479CEE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D30207801AC2F2A300E70110 /* TSNBubbleView.m in Sources */,
+				D302078D1AC36F2E00E70110 /* TSNAppContext.m in Sources */,
+				D32FABE81AC4A1F8005C0AF4 /* CBPeripheralManager+Extensions.m in Sources */,
+				D33328231AC1D839009F3F9A /* main.m in Sources */,
+				D33935881AC9CEE7004B57BB /* TSNPeerAnnotation.m in Sources */,
+				D33328351AC1D8E0009F3F9A /* TSNAppWindow.m in Sources */,
+				D32FABF51AC4B458005C0AF4 /* TSNLocationContext.m in Sources */,
+				D30207851AC2FAF700E70110 /* TSNSettingsView.m in Sources */,
+				D36385BA1ACAE8C600BA95F1 /* CBPeripheral+Extensions.m in Sources */,
+				D33328271AC1D880009F3F9A /* TSNAppDelegate.m in Sources */,
+				D339358C1AC9DF1E004B57BB /* TSNPeer.m in Sources */,
+				D3F583B91AC1BE7000479CEE /* ThaliBubbles.xcdatamodeld in Sources */,
+				D33328311AC1D8C8009F3F9A /* TSNAppViewController.m in Sources */,
+				D32FABF11AC4AB92005C0AF4 /* CBCentralManager+Extensions.m in Sources */,
+				D333282C1AC1D8B0009F3F9A /* TSNAppView.m in Sources */,
+				D3D95F071AC58D1700278A40 /* TSNPeerBluetoothContext.m in Sources */,
+				D30207891AC31EC200E70110 /* TSNBubbleViewTableViewCell.m in Sources */,
+				D3D95F041AC58C7C00278A40 /* TSNPeerNetworkingContext.m in Sources */,
+				D3D95F111AC72A6100278A40 /* TSNMeAnnotation.m in Sources */,
+				D3D95F0E1AC71B1600278A40 /* TSNNearbyPeersView.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		D3F583D11AC1BE7000479CEE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D3F583D21AC1BE7000479CEE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		D3F583D41AC1BE7000479CEE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 04DDD68A05383B01ADC6A075 /* Pods.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				INFOPLIST_FILE = "$(SRCROOT)/ThaliBubbles/Assets/PropertyLists/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		D3F583D51AC1BE7000479CEE /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 91773E6A66D910D57CC3D522 /* Pods.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				INFOPLIST_FILE = "$(SRCROOT)/ThaliBubbles/Assets/PropertyLists/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D3F583A81AC1BE7000479CEE /* Build configuration list for PBXProject "ThaliBubbles" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D3F583D11AC1BE7000479CEE /* Debug */,
+				D3F583D21AC1BE7000479CEE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D3F583D31AC1BE7000479CEE /* Build configuration list for PBXNativeTarget "ThaliBubbles" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D3F583D41AC1BE7000479CEE /* Debug */,
+				D3F583D51AC1BE7000479CEE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		D3F583B71AC1BE7000479CEE /* ThaliBubbles.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				D3F583B81AC1BE7000479CEE /* ThaliBubbles.xcdatamodel */,
+			);
+			currentVersion = D3F583B81AC1BE7000479CEE /* ThaliBubbles.xcdatamodel */;
+			path = ThaliBubbles.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = D3F583A51AC1BE7000479CEE /* Project object */;
+}
