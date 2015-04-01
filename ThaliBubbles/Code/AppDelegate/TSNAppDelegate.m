@@ -32,6 +32,19 @@
 #import "TSNAppWindow.h"
 #import "TSNAppViewController.h"
 
+// Logging.
+static inline void Log(NSString * format, ...)
+{
+    // Format the log entry.
+    va_list args;
+    va_start(args, format);
+    NSString * formattedString = [[NSString alloc] initWithFormat:format arguments:args];
+    va_end(args);
+    
+    // Append the log entry.
+    TSNLog([NSString stringWithFormat:@"          TSNAppDelegate: %@", formattedString]);
+}
+
 // TSNAppDelegate (UIApplicationDelegate) interface.
 @interface TSNAppDelegate (UIApplicationDelegate) <UIApplicationDelegate>
 @end
@@ -102,26 +115,31 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 // Tells the delegate that the application is about to become inactive.
 - (void)applicationWillResignActive:(UIApplication *)application
 {
+    Log(@"Application will resign active");
 }
 
 // Tells the delegate that the application is now in the background.
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
+    Log(@"Application did enter background");
 }
 
 // Tells the delegate that the application is about to enter the foreground.
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
+    Log(@"Application will enter foreground");
 }
 
 // Tells the delegate that the application has become active.
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
+    Log(@"Application did become active");
 }
 
 // Tells the delegate when the application is about to terminate.
 - (void)applicationWillTerminate:(UIApplication *)application
 {
+    Log(@"Application will terminate");
 }
 
 @end
