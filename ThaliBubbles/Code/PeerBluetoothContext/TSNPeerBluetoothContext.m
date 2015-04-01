@@ -619,7 +619,7 @@ didRetrieveConnectedPeripherals:(NSArray *)peripherals
     if (peerDescriptor)
     {
         [_connectingPeers removeObjectForKey:peripheralIdentifierString];
-        [_connectedPeers setObject:peerDescriptor
+        [_connectedPeers setObject:[[TSNPeerDescriptor alloc] initWithPeripheral:peripheral]
                             forKey:peripheralIdentifierString];
     }
     else
@@ -698,9 +698,11 @@ didDisconnectPeripheral:(CBPeripheral *)peripheral
     if (peerDescriptor)
     {
         Log(@"Moving peer %@ from connected to connecting and reconnecting", peripheralIdentifierString);
+        
         // Move the peer from connected to connecting and immediately issue another connect.
         [_connectedPeers removeObjectForKey:peripheralIdentifierString];
-        [_connectingPeers setObject:peerDescriptor
+        
+        [_connectingPeers setObject:[[TSNPeerDescriptor alloc] initWithPeripheral:peripheral]
                              forKey:peripheralIdentifierString];
         [_centralManager connectPeripheral:peripheral options:nil];
         
