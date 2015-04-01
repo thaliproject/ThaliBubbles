@@ -571,10 +571,20 @@ didRetrieveConnectedPeripherals:(NSArray *)peripherals
 {
     // If we are not connected or connecting to this peer, connect to it.
     NSString * peripheralIdentifierString = [peripheral identifierString];
+    
+    if (_connectedPeers[peripheralIdentifierString])
+    {
+        Log(@"Discovered peer %@ that we're already connected to", peripheralIdentifierString);
+    }
+    else if (_connectingPeers[peripheralIdentifierString])
+    {
+        Log(@"Discovered peer %@ that we're already connecting to", peripheralIdentifierString);
+    }
+    
     if (!_connectedPeers[peripheralIdentifierString] && !_connectingPeers[peripheralIdentifierString])
     {
         // Log.
-        Log(@"Connecting to peer %@", peripheralIdentifierString);
+        Log(@"Discovered peer %@ and connecting", peripheralIdentifierString);
         
         // Add a TSNPeerDescriptor to the connecting peers dictionary.
         [_connectingPeers setObject:[[TSNPeerDescriptor alloc] initWithPeripheral:peripheral]
@@ -1011,7 +1021,7 @@ didWriteValueForDescriptor:(CBDescriptor *)descriptor
     if ([_centralManager state] == CBCentralManagerStatePoweredOn && [_atomicFlagEnabled isSet] && [_atomicFlagScanning trySet])
     {
         [_centralManager scanForPeripheralsWithServices:@[_cbuuidService]
-                                                options:@{CBCentralManagerScanOptionAllowDuplicatesKey: @(YES)}];
+                                                options:@{CBCentralManagerScanOptionAllowDuplicatesKey: @(NO)}];
         Log(@"Started scanning for peers");
     }
 }
