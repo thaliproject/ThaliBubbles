@@ -145,9 +145,6 @@ static inline void Log(NSString * format, ...)
     // The location characteristic UUID.
     CBUUID * _cbuuidCharacteristicLocation;
     
-    // The data characteristic UUID.
-    CBUUID * _cbuuidCharacteristicData;
-
     // The service.
     CBMutableService * _service;
     
@@ -157,9 +154,6 @@ static inline void Log(NSString * format, ...)
     // The location characteristic.
     CBMutableCharacteristic * _characteristicLocation;
     
-    // The data characteristic.
-    CBMutableCharacteristic * _characteristicData;
-
     // The advertising data.
     NSDictionary * _advertisingData;
     
@@ -210,9 +204,6 @@ static inline void Log(NSString * format, ...)
     // Allocate and initialize the location characteristic UUID.
     _cbuuidCharacteristicLocation = [CBUUID UUIDWithString:@"B080D422-5B7D-430B-9F75-1D1D7D264197"];
     
-    // Allocate and initialize the data characteristic UUID.
-    _cbuuidCharacteristicData = [CBUUID UUIDWithString:@"D6B288EC-2991-436D-9F10-1E3D467F4AF2"];
-
     // Allocate and initialize the service.
     _service = [[CBMutableService alloc] initWithType:_cbuuidService
                                               primary:YES];
@@ -229,16 +220,9 @@ static inline void Log(NSString * format, ...)
                                                               value:nil
                                                         permissions:CBAttributePermissionsReadable];
 
-    // Allocate and initialize the characteristic.
-    _characteristicData = [[CBMutableCharacteristic alloc] initWithType:_cbuuidCharacteristicData
-                                                             properties:CBCharacteristicPropertyRead
-                                                                  value:nil
-                                                            permissions:CBAttributePermissionsReadable];
-
     // Set the service characteristics.
     [_service setCharacteristics:@[_characteristicPeerName,
-                                   _characteristicLocation,
-                                   _characteristicData]];
+                                   _characteristicLocation]];
     
     // Allocate and initialize the advertising data.
     _advertisingData = @{CBAdvertisementDataServiceUUIDsKey:    @[_cbuuidService],
@@ -785,8 +769,7 @@ didDiscoverServices:(NSError *)error
         if ([[service UUID] isEqual:_cbuuidService])
         {
             [peripheral discoverCharacteristics:@[_cbuuidCharacteristicPeerName,
-                                                  _cbuuidCharacteristicLocation,
-                                                  _cbuuidCharacteristicData]
+                                                  _cbuuidCharacteristicLocation]
                                      forService:service];
         }
     }
@@ -837,11 +820,6 @@ didDiscoverCharacteristicsForService:(CBService *)service
                 Log(@"Subscribing to location characteristic");
                 [peripheral setNotifyValue:YES
                          forCharacteristic:characteristic];
-            }
-            else if ([[characteristic UUID] isEqual:_cbuuidCharacteristicData])
-            {
-//                Log(@"Reading data characteristic");
-//                [peripheral readValueForCharacteristic:characteristic];
             }
         }
     }
@@ -907,10 +885,6 @@ didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic
                                didReceiveLocation:[[CLLocation alloc] initWithLatitude:location->latitude longitude:location->longitude]
                                       forPeerName:peerName];
         }
-    }
-    else if ([[characteristic UUID] isEqual:_cbuuidCharacteristicData])
-    {
-        Log(@"Read data characteristic length %u", [[characteristic value] length]);
     }
 }
 
