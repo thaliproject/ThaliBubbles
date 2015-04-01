@@ -614,6 +614,7 @@ didRetrieveConnectedPeripherals:(NSArray *)peripherals
     }
     else
     {
+        Log(@"!!!!!!!!!!!!!!BAD! We didn't have the peer in connecting peers when it connected!!!!!!!!!!!!!!");
         [_connectedPeers setObject:[[TSNPeerDescriptor alloc] initWithPeripheral:peripheral]
                             forKey:peripheralIdentifierString];
     }
@@ -638,12 +639,21 @@ didRetrieveConnectedPeripherals:(NSArray *)peripherals
 didFailToConnectPeripheral:(CBPeripheral *)peripheral
                  error:(NSError *)error
 {
+    NSString * peripheralIdentifierString = [peripheral identifierString];
+
     // Log.
-    Log(@"Unable to connect to peer %@ (%@)", [peripheral identifierString], [error localizedDescription]);
+    Log(@"Unable to connect to peer %@ (%@)", peripheralIdentifierString, [error localizedDescription]);
     
     // Immediately issue another connect.
-    [_centralManager connectPeripheral:peripheral
-                               options:nil];
+    if ([_connectingPeers objectForKey:[peripheral identifierString]])
+    {
+        [_centralManager connectPeripheral:peripheral
+                                   options:nil];
+    }
+    else
+    {
+        Log(@"!!!!!!!!!!!!!!BAD! We didn't have the peer in connecting peers when we couldn't connect!!!!!!!!!!!!!!");
+    }
 }
 
 /*!
@@ -692,6 +702,10 @@ didDisconnectPeripheral:(CBPeripheral *)peripheral
                 [[self delegate] peerBluetoothContext:self didDisconnectFromPeerName:[peerDescriptor peerName]];
             }
         }
+    }
+    else
+    {
+        Log(@"!!!!!!!!!!!!!!BAD! We didn't have the peer in connected peers when it disconnected!!!!!!!!!!!!!!");
     }
 }
 
