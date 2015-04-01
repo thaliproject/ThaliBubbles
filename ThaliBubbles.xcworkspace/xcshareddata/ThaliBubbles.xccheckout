@@ -10,14 +10,14 @@
 	<string>ThaliBubbles</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>8FDEA3AFB15228F6476E2622F5858067355D915E</key>
+		<key>512F04AA85A3180F940FD3B6AE2F8A902C45073F</key>
 		<string>github.com:softwarenerd/ThaliBubbles.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>ThaliBubbles.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>8FDEA3AFB15228F6476E2622F5858067355D915E</key>
+		<key>512F04AA85A3180F940FD3B6AE2F8A902C45073F</key>
 		<string>..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
@@ -25,14 +25,14 @@
 	<key>IDESourceControlProjectVersion</key>
 	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>8FDEA3AFB15228F6476E2622F5858067355D915E</string>
+	<string>512F04AA85A3180F940FD3B6AE2F8A902C45073F</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>8FDEA3AFB15228F6476E2622F5858067355D915E</string>
+			<string>512F04AA85A3180F940FD3B6AE2F8A902C45073F</string>
 			<key>IDESourceControlWCCName</key>
 			<string>ThaliBubbles</string>
 		</dict>

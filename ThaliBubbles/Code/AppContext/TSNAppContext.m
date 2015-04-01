@@ -8,6 +8,7 @@
 
 #import <pthread.h>
 #import <TSNLogger.h>
+#import <TSNAtomicFlag.h>
 #import "TSNAppContext.h"
 #import "TSNPeerBluetoothContext.h"
 #import "TSNPeerNetworkingContext.h"
@@ -44,12 +45,22 @@ NSString * const TSNPeersUpdatedNotification    = @"TSNPeersUpdated";
 
 // TSNAppContext (Internal) interface.
 @interface TSNAppContext (Internal)
+
+// Class initializer.
+- (instancetype)init;
+
+// The updater thread entry point.
+- (void)threadUpdaterEntryPointWithObject:(id)object;
+
 @end
 
 // TSNAppContext implementation.
 @implementation TSNAppContext
 {
 @private
+    // The enabled atomic flag.
+    TSNAtomicFlag * _atomicFlagEnabled;
+
     // The peer Bluetooth context.
     TSNPeerBluetoothContext * _peerBluetoothContext;
     
@@ -67,6 +78,9 @@ NSString * const TSNPeersUpdatedNotification    = @"TSNPeersUpdated";
     
     // The peers dictionary.
     NSMutableDictionary * _peers;
+    
+    // The updater thread.
+    NSThread * _threadUpdater;
 }
 
 // Singleton.
@@ -96,17 +110,32 @@ NSString * const TSNPeersUpdatedNotification    = @"TSNPeersUpdated";
 // Starts communications.
 - (void)startCommunications
 {
-    [_peerBluetoothContext start];
-//    [_peerNetworkingContext start];
-    [_locationContext start];
+    if ([_atomicFlagEnabled trySet])
+    {
+        [_peerBluetoothContext start];
+        //    [_peerNetworkingContext start];
+        [_locationContext start];
+        
+        _threadUpdater = [[NSThread alloc] initWithTarget:self
+                                                 selector:@selector(threadUpdaterEntryPointWithObject:)
+                                                   object:nil];
+        [_threadUpdater setQualityOfService:NSQualityOfServiceUserInteractive];
+        [_threadUpdater setName:@"org.thaliproject.thalibubbles"];
+        [_threadUpdater setThreadPriority:0.75];
+        [_threadUpdater start];
+
+    }
 }
 
 // Stops communications.
 - (void)stopCommunications
 {
-    [_peerBluetoothContext stop];
-//    [_peerNetworkingContext stop];
-    [_locationContext stop];
+    if ([_atomicFlagEnabled tryClear])
+    {
+        [_peerBluetoothContext stop];
+        //[_peerNetworkingContext stop];
+        [_locationContext stop];
+    }
 }
 
 - (NSArray *)peers
@@ -247,14 +276,6 @@ NSString * const TSNPeersUpdatedNotification    = @"TSNPeersUpdated";
     // Unlock.
     pthread_mutex_unlock(&_mutex);
     
-    // Update our location in the peer Bluetooth context to share it with peers.
-    [_peerBluetoothContext updateLocation:location];
-    
-//    NSString * foo = [NSString stringWithFormat:@"%@ says hello", [[UIDevice currentDevice] name]];
-//    
-//    
-//    [_peerNetworkingContext sendData:[foo dataUsingEncoding:NSUTF8StringEncoding]];
-    
     // Post the TSNLocationUpdatedNotification so the rest of the app knows about the location update.
     [[NSNotificationCenter defaultCenter] postNotificationName:TSNLocationUpdatedNotification
                                                         object:location];
@@ -278,6 +299,7 @@ NSString * const TSNPeersUpdatedNotification    = @"TSNPeersUpdated";
     }
     
     // Intialize.
+    _atomicFlagEnabled = [[TSNAtomicFlag alloc] init];
     pthread_mutex_init(&_mutex, NULL);
     _peers = [[NSMutableDictionary alloc] init];
     
@@ -299,6 +321,34 @@ NSString * const TSNPeersUpdatedNotification    = @"TSNPeersUpdated";
 
     // Done.
     return self;
+}
+
+// The updater thread entry point.
+- (void)threadUpdaterEntryPointWithObject:(id)object
+{
+    // Run while we're connected.
+    while ([_atomicFlagEnabled isSet])
+    {
+        [NSThread sleepForTimeInterval:5.0];
+        
+        // Lock.
+        pthread_mutex_lock(&_mutex);
+        
+        // Update the location.
+        CLLocation * location = _location;
+        
+        // Unlock.
+        pthread_mutex_unlock(&_mutex);
+
+        if (location)
+        {
+            NSLog(@"Update!! location");
+
+            // Update our location in the peer Bluetooth context to share it with peers.
+            [_peerBluetoothContext updateLocation:location];
+        }
+
+    }
 }
 
 @end
