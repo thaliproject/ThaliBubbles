@@ -662,20 +662,22 @@ didFailToConnectPeripheral:(CBPeripheral *)peripheral
 didDisconnectPeripheral:(CBPeripheral *)peripheral
                  error:(NSError *)error
 {
+    NSString * peripheralIdentifierString = [peripheral identifierString];
+
     // Log.
     if (error)
     {
-        Log(@"Lost connection to peer %@ (%@)", [peripheral identifierString], [error localizedDescription]);
+        Log(@"Lost connection to peer %@ (%@)", peripheralIdentifierString, [error localizedDescription]);
     }
     else
     {
-        Log(@"Lost connection to peer %@", [peripheral identifierString]);
+        Log(@"Lost connection to peer %@", peripheralIdentifierString);
     }
     
-    NSString * peripheralIdentifierString = [peripheral identifierString];
     TSNPeerDescriptor * peerDescriptor = [_connectedPeers objectForKey:peripheralIdentifierString];
     if (peerDescriptor)
     {
+        Log(@"Moving peer %@ from connected to connecting and reconnecting connect", [peripheralIdentifierString]);
         // Move the peer from connected to connecting and immediately issue another connect.
         [_connectedPeers removeObjectForKey:peripheralIdentifierString];
         [_connectingPeers setObject:peerDescriptor
