@@ -677,7 +677,7 @@ didDisconnectPeripheral:(CBPeripheral *)peripheral
     TSNPeerDescriptor * peerDescriptor = [_connectedPeers objectForKey:peripheralIdentifierString];
     if (peerDescriptor)
     {
-        Log(@"Moving peer %@ from connected to connecting and reconnecting connect", [peripheralIdentifierString]);
+        Log(@"Moving peer %@ from connected to connecting and reconnecting", peripheralIdentifierString);
         // Move the peer from connected to connecting and immediately issue another connect.
         [_connectedPeers removeObjectForKey:peripheralIdentifierString];
         [_connectingPeers setObject:peerDescriptor
