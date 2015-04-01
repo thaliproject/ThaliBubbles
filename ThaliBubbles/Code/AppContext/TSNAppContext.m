@@ -347,7 +347,6 @@ NSString * const TSNPeersUpdatedNotification    = @"TSNPeersUpdated";
             // Update our location in the peer Bluetooth context to share it with peers.
             [_peerBluetoothContext updateLocation:location];
         }
-
     }
 }
 
