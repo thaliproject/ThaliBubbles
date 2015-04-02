@@ -610,16 +610,6 @@ didRetrieveConnectedPeripherals:(NSArray *)peripherals
         [_connectingPeers removeObjectForKey:peripheralIdentifierString];
         [_connectedPeers setObject:[[TSNPeerDescriptor alloc] initWithPeripheral:peripheral]
                             forKey:peripheralIdentifierString];
-
-        if ([[UIApplication sharedApplication] applicationState] != UIApplicationStateActive)
-        {
-            UILocalNotification * localNotification = [[UILocalNotification alloc] init];
-            [localNotification setFireDate:[[NSDate alloc] init]];
-            [localNotification setAlertTitle:@"Connected"];
-            [localNotification setAlertBody:[NSString stringWithFormat:@"Connected to %@.", peripheralIdentifierString]];
-            [localNotification setSoundName:UILocalNotificationDefaultSoundName];
-            [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
-        }
     }
     else
     {
@@ -711,7 +701,7 @@ didDisconnectPeripheral:(CBPeripheral *)peripheral
             UILocalNotification * localNotification = [[UILocalNotification alloc] init];
             [localNotification setFireDate:[[NSDate alloc] init]];
             [localNotification setAlertTitle:@"Disconnected"];
-            [localNotification setAlertBody:[NSString stringWithFormat:@"Disconnected from %@.", peripheralIdentifierString]];
+            [localNotification setAlertBody:[NSString stringWithFormat:@"Disconnected from %@.", [peerDescriptor peerName]]];
             [localNotification setSoundName:UILocalNotificationDefaultSoundName];
             [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
         }
@@ -880,6 +870,16 @@ didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic
             TSNPeerDescriptor * peerDescriptor = _connectedPeers[[peripheral identifierString]];
             if (peerDescriptor)
             {
+                if ([[UIApplication sharedApplication] applicationState] != UIApplicationStateActive)
+                {
+                    UILocalNotification * localNotification = [[UILocalNotification alloc] init];
+                    [localNotification setFireDate:[[NSDate alloc] init]];
+                    [localNotification setAlertTitle:@"Connected"];
+                    [localNotification setAlertBody:[NSString stringWithFormat:@"Connected to %@.", peerName]];
+                    [localNotification setSoundName:UILocalNotificationDefaultSoundName];
+                    [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
+                }
+
                 // Update the peer descriptor name.
                 [peerDescriptor setPeerName:peerName];
                 
