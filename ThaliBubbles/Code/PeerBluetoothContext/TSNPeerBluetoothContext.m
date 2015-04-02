@@ -610,7 +610,17 @@ didRetrieveConnectedPeripherals:(NSArray *)peripherals
         [_connectingPeers removeObjectForKey:peripheralIdentifierString];
         [_connectedPeers setObject:[[TSNPeerDescriptor alloc] initWithPeripheral:peripheral]
                             forKey:peripheralIdentifierString];
-    }
+
+        if ([[UIApplication sharedApplication] applicationState] != UIApplicationStateActive)
+        {
+            UILocalNotification * localNotification = [[UILocalNotification alloc] init];
+            [localNotification setFireDate:[[NSDate alloc] init]];
+            [localNotification setAlertTitle:@"New Peer Connected"];
+            [localNotification setAlertBody:[NSString stringWithFormat:@"Connected to %@.", peripheralIdentifierString]];
+            [localNotification setSoundName:UILocalNotificationDefaultSoundName];
+            [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
+        }
+}
     else
     {
         Log(@"!!!!!!!!!!!!!!BAD! We didn't have the peer in connecting peers when it connected!!!!!!!!!!!!!!");
