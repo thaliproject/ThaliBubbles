@@ -114,15 +114,15 @@ NSString * const TSNPeersUpdatedNotification    = @"TSNPeersUpdated";
     {
         [_peerBluetoothContext start];
         //    [_peerNetworkingContext start];
-        //[_locationContext start];
+        [_locationContext start];
         
-//        _threadUpdater = [[NSThread alloc] initWithTarget:self
-//                                                 selector:@selector(threadUpdaterEntryPointWithObject:)
-//                                                   object:nil];
-//        [_threadUpdater setQualityOfService:NSQualityOfServiceBackground];
-//        [_threadUpdater setName:@"org.thaliproject.thalibubblesaa"];
-////        [_threadUpdater setThreadPriority:0.75];
-//        [_threadUpdater start];
+        _threadUpdater = [[NSThread alloc] initWithTarget:self
+                                                 selector:@selector(threadUpdaterEntryPointWithObject:)
+                                                   object:nil];
+        [_threadUpdater setQualityOfService:NSQualityOfServiceBackground];
+        [_threadUpdater setName:@"org.thaliproject.thalibubblesaa"];
+//        [_threadUpdater setThreadPriority:0.75];
+        [_threadUpdater start];
     }
 }
 
@@ -131,8 +131,8 @@ NSString * const TSNPeersUpdatedNotification    = @"TSNPeersUpdated";
 {
     if ([_atomicFlagEnabled tryClear])
     {
-        //[_peerBluetoothContext stop];
-        //[_peerNetworkingContext stop];
+        [_peerBluetoothContext stop];
+//        [_peerNetworkingContext stop];
         [_locationContext stop];
     }
 }
@@ -275,6 +275,9 @@ NSString * const TSNPeersUpdatedNotification    = @"TSNPeersUpdated";
     // Unlock.
     pthread_mutex_unlock(&_mutex);
     
+    // Update our location in the peer Bluetooth context to share it with peers.
+    [_peerBluetoothContext updateLocation:location];
+
     // Post the TSNLocationUpdatedNotification so the rest of the app knows about the location update.
     [[NSNotificationCenter defaultCenter] postNotificationName:TSNLocationUpdatedNotification
                                                         object:location];
