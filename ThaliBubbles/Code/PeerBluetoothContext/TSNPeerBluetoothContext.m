@@ -124,6 +124,9 @@ static inline void Log(NSString * format, ...)
 @implementation TSNPeerBluetoothContext
 {
 @private
+    // The operation queue.
+    dispatch_queue_t _operationQueue;
+
     // The peer name.
     NSString * _peerName;
     
@@ -186,6 +189,9 @@ static inline void Log(NSString * format, ...)
     }
     
     // Initialize.
+    _operationQueue = dispatch_queue_create("com.yackalskdhjaksd", DISPATCH_QUEUE_SERIAL);
+
+    // Initialize.
     _peerName = peerName;
     _canonicalPeerName = [_peerName dataUsingEncoding:NSUTF8StringEncoding];
     
@@ -231,11 +237,10 @@ static inline void Log(NSString * format, ...)
     // Allocate and initialize the peripheral manager.
     _peripheralManager = [[CBPeripheralManager alloc] initWithDelegate:self
                                                                  queue:nil];
-
     
     // Allocate and initialize the central manager.
     _centralManager = [[CBCentralManager alloc] initWithDelegate:(id<CBCentralManagerDelegate>)self
-                                                           queue:nil];
+                                                           queue:_operationQueue];
     
     // Allocate and initialize the connected peers dictionary. It contains a TSNPeerDescriptor for
     // every peer we are connected to.
