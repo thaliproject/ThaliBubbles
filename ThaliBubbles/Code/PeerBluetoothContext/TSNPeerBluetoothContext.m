@@ -615,12 +615,12 @@ didRetrieveConnectedPeripherals:(NSArray *)peripherals
         {
             UILocalNotification * localNotification = [[UILocalNotification alloc] init];
             [localNotification setFireDate:[[NSDate alloc] init]];
-            [localNotification setAlertTitle:@"New Peer Connected"];
+            [localNotification setAlertTitle:@"Connected"];
             [localNotification setAlertBody:[NSString stringWithFormat:@"Connected to %@.", peripheralIdentifierString]];
             [localNotification setSoundName:UILocalNotificationDefaultSoundName];
             [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
         }
-}
+    }
     else
     {
         Log(@"!!!!!!!!!!!!!!BAD! We didn't have the peer in connecting peers when it connected!!!!!!!!!!!!!!");
@@ -706,6 +706,16 @@ didDisconnectPeripheral:(CBPeripheral *)peripheral
         [_centralManager connectPeripheral:peripheral
                                    options:nil];
         
+        if ([[UIApplication sharedApplication] applicationState] != UIApplicationStateActive)
+        {
+            UILocalNotification * localNotification = [[UILocalNotification alloc] init];
+            [localNotification setFireDate:[[NSDate alloc] init]];
+            [localNotification setAlertTitle:@"Disconnected"];
+            [localNotification setAlertBody:[NSString stringWithFormat:@"Disconnected from %@.", peripheralIdentifierString]];
+            [localNotification setSoundName:UILocalNotificationDefaultSoundName];
+            [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
+        }
+
         // Notify the delegate.
         if ([peerDescriptor peerName])
         {
