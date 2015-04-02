@@ -180,6 +180,11 @@
 // TSNLocationUpdatedNotification callback.
 - (void)locationUpdatedNotificationCallback:(NSNotification *)notification
 {
+    if ([[UIApplication sharedApplication] applicationState] != UIApplicationStateActive)
+    {
+        return;
+    }
+
     // Get the location.
     CLLocation * location = [notification object];
     
@@ -199,6 +204,11 @@
 // TSNPeersUpdatedNotification callback.
 - (void)peersUpdatedNotificationCallback:(NSNotification *)notification
 {
+    if ([[UIApplication sharedApplication] applicationState] != UIApplicationStateActive)
+    {
+        return;
+    }
+
     OnMainThread(^{
         // Get the peers from the app context.
         NSArray * peers = [[TSNAppContext singleton] peers];

@@ -75,8 +75,8 @@ static inline void Log(NSString * format, ...)
     
     // Allocate and initialize the Core Location manager.
     _locationManager = [[CLLocationManager alloc] init];
-    [_locationManager setActivityType:CLActivityTypeOther];
-    [_locationManager setDesiredAccuracy:kCLLocationAccuracyNearestTenMeters];
+    [_locationManager setActivityType:CLActivityTypeFitness];
+    [_locationManager setDesiredAccuracy:kCLLocationAccuracyBest];
     [_locationManager setDelegate:(id<CLLocationManagerDelegate>)self];
     
     // Done.

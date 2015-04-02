@@ -236,7 +236,7 @@ static inline void Log(NSString * format, ...)
     
     // Allocate and initialize the peripheral manager.
     _peripheralManager = [[CBPeripheralManager alloc] initWithDelegate:self
-                                                                 queue:nil];
+                                                                 queue:_operationQueue];
     
     // Allocate and initialize the central manager.
     _centralManager = [[CBCentralManager alloc] initWithDelegate:(id<CBCentralManagerDelegate>)self
@@ -693,7 +693,8 @@ didDisconnectPeripheral:(CBPeripheral *)peripheral
         
         [_connectingPeers setObject:[[TSNPeerDescriptor alloc] initWithPeripheral:peripheral]
                              forKey:peripheralIdentifierString];
-        [_centralManager connectPeripheral:peripheral options:nil];
+        [_centralManager connectPeripheral:peripheral
+                                   options:nil];
         
         // Notify the delegate.
         if ([peerDescriptor peerName])
@@ -1002,7 +1003,8 @@ didWriteValueForDescriptor:(CBDescriptor *)descriptor
     if ([_centralManager state] == CBCentralManagerStatePoweredOn && [_atomicFlagEnabled isSet] && [_atomicFlagScanning trySet])
     {
         [_centralManager scanForPeripheralsWithServices:@[_cbuuidService]
-                                                options:@{CBCentralManagerScanOptionAllowDuplicatesKey: @(NO)}];
+                                                options:@{CBCentralManagerOptionShowPowerAlertKey: @(YES),
+                                                          CBCentralManagerScanOptionAllowDuplicatesKey: @(NO)}];
         Log(@"Started scanning for peers");
     }
 }
