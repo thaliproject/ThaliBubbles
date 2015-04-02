@@ -119,11 +119,10 @@ NSString * const TSNPeersUpdatedNotification    = @"TSNPeersUpdated";
         _threadUpdater = [[NSThread alloc] initWithTarget:self
                                                  selector:@selector(threadUpdaterEntryPointWithObject:)
                                                    object:nil];
-        [_threadUpdater setQualityOfService:NSQualityOfServiceUserInteractive];
-        [_threadUpdater setName:@"org.thaliproject.thalibubbles"];
-        [_threadUpdater setThreadPriority:0.75];
+        [_threadUpdater setQualityOfService:NSQualityOfServiceBackground];
+        [_threadUpdater setName:@"org.thaliproject.thalibubblesaa"];
+//        [_threadUpdater setThreadPriority:0.75];
         [_threadUpdater start];
-
     }
 }
 
