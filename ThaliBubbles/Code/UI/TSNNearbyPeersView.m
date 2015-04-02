@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 Microsoft. All rights reserved.
 //
 
+#import <TSNThreading.h>
 #import <MapKit/MapKit.h>
 #import "TSNAppContext.h"
 #import "TSNNearbyPeersView.h"
@@ -198,67 +199,69 @@
 // TSNPeersUpdatedNotification callback.
 - (void)peersUpdatedNotificationCallback:(NSNotification *)notification
 {
-    // Get the peers from the app context.
-    NSArray * peers = [[TSNAppContext singleton] peers];
-    
-    // If there are no peers, remove all peer annotations.
-    if (![peers count])
-    {
-        // If there are any peer annotations, remove them all.
-        if ([_peerAnnotations count])
+    OnMainThread(^{
+        // Get the peers from the app context.
+        NSArray * peers = [[TSNAppContext singleton] peers];
+        
+        // If there are no peers, remove all peer annotations.
+        if (![peers count])
         {
-            [_mapView removeAnnotations:[_peerAnnotations allValues]];
-            [_peerAnnotations removeAllObjects];
+            // If there are any peer annotations, remove them all.
+            if ([_peerAnnotations count])
+            {
+                [_mapView removeAnnotations:[_peerAnnotations allValues]];
+                [_peerAnnotations removeAllObjects];
+            }
+            
+            // Done.
+            return;
         }
         
-        // Done.
-        return;
-    }
-    
-    // Enumerate the peers and add / update peer annotations, as needed.
-    NSMutableDictionary * peerAnnotationsAdded = [[NSMutableDictionary alloc] initWithCapacity:[peers count]];
-    NSMutableDictionary * peerAnnotationsProcessed = [[NSMutableDictionary alloc] initWithCapacity:[peers count]];
-    for (TSNPeer * peer in peers)
-    {
-        // See if we have a peer annotation for this peer. If we do, update it and note that we processed it.
-        // If we don't, create it and note that we added it.
-        TSNPeerAnnotation * peerAnnotation = [_peerAnnotations objectForKey:[peer peerName]];
-        if (peerAnnotation)
+        // Enumerate the peers and add / update peer annotations, as needed.
+        NSMutableDictionary * peerAnnotationsAdded = [[NSMutableDictionary alloc] initWithCapacity:[peers count]];
+        NSMutableDictionary * peerAnnotationsProcessed = [[NSMutableDictionary alloc] initWithCapacity:[peers count]];
+        for (TSNPeer * peer in peers)
         {
-            [peerAnnotation setCoordinate:[[peer location] coordinate]];
-            peerAnnotationsProcessed[[peer peerName]] = peerAnnotation;
+            // See if we have a peer annotation for this peer. If we do, update it and note that we processed it.
+            // If we don't, create it and note that we added it.
+            TSNPeerAnnotation * peerAnnotation = [_peerAnnotations objectForKey:[peer peerName]];
+            if (peerAnnotation)
+            {
+                [peerAnnotation setCoordinate:[[peer location] coordinate]];
+                peerAnnotationsProcessed[[peer peerName]] = peerAnnotation;
+            }
+            else
+            {
+                peerAnnotation = [[TSNPeerAnnotation alloc] initWithPeer:peer];
+                peerAnnotationsAdded[[peer peerName]] = peerAnnotation;
+            }
         }
-        else
+        
+        // Find peer annotations that are no longer needed.
+        NSMutableDictionary * peerAnnotationsToRemove = [[NSMutableDictionary alloc] init];
+        for (TSNPeerAnnotation * peerAnnotation in [_peerAnnotations allValues])
         {
-            peerAnnotation = [[TSNPeerAnnotation alloc] initWithPeer:peer];
-            peerAnnotationsAdded[[peer peerName]] = peerAnnotation;
+            NSString * peerName = [[peerAnnotation peer] peerName];
+            if (!peerAnnotationsProcessed[peerName] && !peerAnnotationsAdded[peerName])
+            {
+                peerAnnotationsToRemove[peerName] = peerAnnotation;
+            }
         }
-    }
-    
-    // Find peer annotations that are no longer needed.
-    NSMutableDictionary * peerAnnotationsToRemove = [[NSMutableDictionary alloc] init];
-    for (TSNPeerAnnotation * peerAnnotation in [_peerAnnotations allValues])
-    {
-        NSString * peerName = [[peerAnnotation peer] peerName];
-        if (!peerAnnotationsProcessed[peerName] && !peerAnnotationsAdded[peerName])
+        
+        // Remove any peer annotations that need to be removed.
+        if ([peerAnnotationsToRemove count])
         {
-            peerAnnotationsToRemove[peerName] = peerAnnotation;
+            [_peerAnnotations removeObjectsForKeys:[peerAnnotationsToRemove allKeys]];
+            [_mapView removeAnnotations:[peerAnnotationsToRemove allValues]];
         }
-    }
-
-    // Remove any peer annotations that need to be removed.
-    if ([peerAnnotationsToRemove count])
-    {
-        [_peerAnnotations removeObjectsForKeys:[peerAnnotationsToRemove allKeys]];
-        [_mapView removeAnnotations:[peerAnnotationsToRemove allValues]];
-    }
-    
-    // Add any peer annotations that need to be added.
-    if ([peerAnnotationsAdded count])
-    {
-        [_peerAnnotations addEntriesFromDictionary:peerAnnotationsAdded];
-        [_mapView addAnnotations:[peerAnnotationsAdded allValues]];
-    }
+        
+        // Add any peer annotations that need to be added.
+        if ([peerAnnotationsAdded count])
+        {
+            [_peerAnnotations addEntriesFromDictionary:peerAnnotationsAdded];
+            [_mapView addAnnotations:[peerAnnotationsAdded allValues]];
+        }
+    });
 }
 
 @end
