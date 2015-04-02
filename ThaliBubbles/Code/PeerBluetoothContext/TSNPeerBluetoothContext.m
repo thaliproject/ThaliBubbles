@@ -1015,11 +1015,11 @@ didWriteValueForDescriptor:(CBDescriptor *)descriptor
 // Updates the last location characteristic.
 - (void)updateLastLocationCharacteristic
 {
-    if (![_connectedPeers count])
-    {
-        Log(@"There are no connected peers. Not updating last location characteristic.");
-        return;
-    }
+//    if (![_connectedPeers count])
+//    {
+//        Log(@"There are no connected peers. Not updating last location characteristic.");
+//        return;
+//    }
     
     if ([_atomicFlagEnabled isSet])
     {
