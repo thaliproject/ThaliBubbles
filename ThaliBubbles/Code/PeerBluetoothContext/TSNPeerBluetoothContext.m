@@ -644,10 +644,9 @@ didFailToConnectPeripheral:(CBPeripheral *)peripheral
     Log(@"Unable to connect to peer %@ (%@)", peripheralIdentifierString, [error localizedDescription]);
     
     // Immediately issue another connect.
-    if ([_connectingPeers objectForKey:[peripheral identifierString]])
+    if ([_connectingPeers objectForKey:peripheralIdentifierString])
     {
-        [_centralManager connectPeripheral:peripheral
-                                   options:nil];
+        [_connectingPeers removeObjectForKey:peripheralIdentifierString];
     }
     else
     {
@@ -686,15 +685,14 @@ didDisconnectPeripheral:(CBPeripheral *)peripheral
     TSNPeerDescriptor * peerDescriptor = [_connectedPeers objectForKey:peripheralIdentifierString];
     if (peerDescriptor)
     {
-        Log(@"Moving peer %@ from connected to connecting and reconnecting", peripheralIdentifierString);
         
         // Move the peer from connected to connecting and immediately issue another connect.
         [_connectedPeers removeObjectForKey:peripheralIdentifierString];
         
-        [_connectingPeers setObject:[[TSNPeerDescriptor alloc] initWithPeripheral:peripheral]
-                             forKey:peripheralIdentifierString];
-        [_centralManager connectPeripheral:peripheral
-                                   options:nil];
+//        [_connectingPeers setObject:[[TSNPeerDescriptor alloc] initWithPeripheral:peripheral]
+//                             forKey:peripheralIdentifierString];
+//        [_centralManager connectPeripheral:peripheral
+//                                   options:nil];
         
         // Notify the delegate.
         if ([peerDescriptor peerName])
