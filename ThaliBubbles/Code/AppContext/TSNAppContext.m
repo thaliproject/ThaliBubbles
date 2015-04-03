@@ -180,7 +180,7 @@ NSString * const TSNPeersUpdatedNotification    = @"TSNPeersUpdated";
         UILocalNotification * localNotification = [[UILocalNotification alloc] init];
         [localNotification setFireDate:[[NSDate alloc] init]];
         [localNotification setAlertTitle:@"Connected"];
-        [localNotification setAlertBody:[NSString stringWithFormat:@"You connected to %@", peerName]];
+        [localNotification setAlertBody:[NSString stringWithFormat:@"Connected to %@", peerName]];
         [localNotification setSoundName:UILocalNotificationDefaultSoundName];
         [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
     }
@@ -208,7 +208,7 @@ NSString * const TSNPeersUpdatedNotification    = @"TSNPeersUpdated";
         UILocalNotification * localNotification = [[UILocalNotification alloc] init];
         [localNotification setFireDate:[[NSDate alloc] init]];
         [localNotification setAlertTitle:@"Disconnected"];
-        [localNotification setAlertBody:[NSString stringWithFormat:@"You disconnected from %@.", peerName]];
+        [localNotification setAlertBody:[NSString stringWithFormat:@"Disconnected from %@.", peerName]];
         [localNotification setSoundName:UILocalNotificationDefaultSoundName];
         [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
     }

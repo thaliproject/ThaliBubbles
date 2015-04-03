@@ -104,7 +104,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
     [_appWindow setRootViewController:_appViewController];
     [_appWindow makeKeyAndVisible];
     
-    OnMainThreadAfterTimeInterval(4.0, ^{
+    OnMainThreadAfterTimeInterval(5.0, ^{
         [[TSNAppContext singleton] startCommunications];
     });
         
