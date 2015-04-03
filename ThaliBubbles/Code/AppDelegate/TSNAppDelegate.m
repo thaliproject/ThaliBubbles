@@ -62,6 +62,9 @@ static inline void Log(NSString * format, ...)
     
     // The app view controller.
     TSNAppViewController * _appViewController;
+    
+    UIBackgroundTaskIdentifier _backgroundTaskIdentifier;
+
 }
 
 @end
@@ -73,6 +76,8 @@ static inline void Log(NSString * format, ...)
 - (BOOL)application:(UIApplication *)application
 didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    _backgroundTaskIdentifier = UIBackgroundTaskInvalid;
+
     [[UIApplication sharedApplication] cancelAllLocalNotifications];
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
  
@@ -104,8 +109,16 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
     [_appWindow setRootViewController:_appViewController];
     [_appWindow makeKeyAndVisible];
     
+    _backgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
+        Log(@"The background task expired");
+    }];
+
+    
     OnMainThreadAfterTimeInterval(5.0, ^{
         [[TSNAppContext singleton] startCommunications];
+        
+        [[UIApplication sharedApplication] endBackgroundTask:_backgroundTaskIdentifier];
+        _backgroundTaskIdentifier = UIBackgroundTaskInvalid;
     });
         
     // Success.
