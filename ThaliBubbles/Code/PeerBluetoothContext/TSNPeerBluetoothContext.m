@@ -696,16 +696,6 @@ didDisconnectPeripheral:(CBPeripheral *)peripheral
         [_centralManager connectPeripheral:peripheral
                                    options:nil];
         
-        if ([[UIApplication sharedApplication] applicationState] != UIApplicationStateActive)
-        {
-            UILocalNotification * localNotification = [[UILocalNotification alloc] init];
-            [localNotification setFireDate:[[NSDate alloc] init]];
-            [localNotification setAlertTitle:@"Disconnected"];
-            [localNotification setAlertBody:[NSString stringWithFormat:@"Disconnected from %@.", [peerDescriptor peerName]]];
-            [localNotification setSoundName:UILocalNotificationDefaultSoundName];
-            [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
-        }
-
         // Notify the delegate.
         if ([peerDescriptor peerName])
         {
@@ -870,16 +860,6 @@ didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic
             TSNPeerDescriptor * peerDescriptor = _connectedPeers[[peripheral identifierString]];
             if (peerDescriptor)
             {
-                if ([[UIApplication sharedApplication] applicationState] != UIApplicationStateActive)
-                {
-                    UILocalNotification * localNotification = [[UILocalNotification alloc] init];
-                    [localNotification setFireDate:[[NSDate alloc] init]];
-                    [localNotification setAlertTitle:@"Connected"];
-                    [localNotification setAlertBody:[NSString stringWithFormat:@"Connected to %@.", peerName]];
-                    [localNotification setSoundName:UILocalNotificationDefaultSoundName];
-                    [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
-                }
-
                 // Update the peer descriptor name.
                 [peerDescriptor setPeerName:peerName];
                 

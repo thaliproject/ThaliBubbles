@@ -248,33 +248,6 @@
 
 @end
 
-//// TSNAppView (TSNPeerNetworkingContextDelegate) implementation.
-//@implementation TSNAppView (TSNPeerNetworkingContextDelegate)
-//
-//// Notifies the delegate that data was received.
-//- (void)peerNetworking:(TSNPeerNetworkingContext *)peerNetworking
-//        didReceiveData:(NSData *)data
-//{
-//    if ([data length])
-//    {
-//        NSString * message = [NSString stringWithUTF8String:[data bytes]];
-//        TSNLog(@"We got: %@", message);
-//    
-//        if ([[UIApplication sharedApplication] applicationState] != UIApplicationStateActive)
-//        {
-//            UILocalNotification * localNotification = [[UILocalNotification alloc] init];
-//            [localNotification setFireDate:[[[NSDate alloc] init] dateByAddingTimeInterval:2.0]];
-//            [localNotification setAlertTitle:@"New Message"];
-//            [localNotification setAlertBody:message];
-//            [localNotification setSoundName:UILocalNotificationDefaultSoundName];
-//            [localNotification setApplicationIconBadgeNumber:1];
-//            [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
-//        }
-//    }
-//}
-//
-//@end
-
 // TSNAppView (UITabBarDelegate) implementation.
 @implementation TSNAppView (UITabBarDelegate)
 
@@ -356,8 +329,6 @@
 {
 //    NSString * message = [NSString stringWithFormat:@"From %@ comes message %lu", [[UIDevice currentDevice] name], (unsigned long)_messageNumber];
 //    _messageNumber++;
-//    
-//    [_peerNetworking sendData:[message dataUsingEncoding:NSUTF8StringEncoding]];
 }
 
 // UIApplicationWillResignActiveNotification callback.
