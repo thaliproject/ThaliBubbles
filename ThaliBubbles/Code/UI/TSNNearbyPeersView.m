@@ -204,11 +204,6 @@
 // TSNPeersUpdatedNotification callback.
 - (void)peersUpdatedNotificationCallback:(NSNotification *)notification
 {
-    if ([[UIApplication sharedApplication] applicationState] != UIApplicationStateActive)
-    {
-        return;
-    }
-
     OnMainThread(^{
         // Get the peers from the app context.
         NSArray * peers = [[TSNAppContext singleton] peers];
