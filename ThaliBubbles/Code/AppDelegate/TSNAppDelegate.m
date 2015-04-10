@@ -109,18 +109,8 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
     [_appWindow setRootViewController:_appViewController];
     [_appWindow makeKeyAndVisible];
     
-    _backgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
-        Log(@"The background task expired");
-    }];
-
+    [[TSNAppContext singleton] startCommunications];
     
-    OnMainThreadAfterTimeInterval(5.0, ^{
-        [[TSNAppContext singleton] startCommunications];
-        
-        [[UIApplication sharedApplication] endBackgroundTask:_backgroundTaskIdentifier];
-        _backgroundTaskIdentifier = UIBackgroundTaskInvalid;
-    });
-        
     // Success.
     return YES;
 }

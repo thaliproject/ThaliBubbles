@@ -1,7 +1,7 @@
 //
 //  The MIT License (MIT)
 //
-//  Copyright (c) 2015 Microsoft
+//  Copyright (c) 2015 Brian Lambert.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -21,7 +21,7 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 //
-//  ThaliBubbles
+//  BackgroundBLE
 //  TSNPeerBluetoothContext.h
 //
 
@@ -46,5 +46,8 @@
 
 // Updates the location.
 - (void)updateLocation:(CLLocation *)location;
+
+// Sends a message.
+- (void)sendMessage:(NSString *)message;
 
 @end

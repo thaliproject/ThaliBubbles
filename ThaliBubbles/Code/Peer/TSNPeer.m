@@ -20,9 +20,10 @@
 }
 
 // Class initializer.
-- (instancetype)initWithPeerName:(NSString *)peerName
-                        location:(CLLocation *)location
-                        distance:(CLLocationDistance)distance
+- (instancetype)initWithIdentifier:(NSString *)identifier
+                              name:(NSString *)name
+                          location:(CLLocation *)location
+                          distance:(CLLocationDistance)distance
 {
     // Initialize superclass.
     self = [super init];
@@ -34,7 +35,8 @@
     }
     
     // Initialize.
-    _peerName = peerName;
+    _identifier = identifier;
+    _name = name;
     _location = location;
     _disance = distance;
     _lastUpdated = [[NSDate alloc] init];

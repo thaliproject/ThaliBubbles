@@ -92,10 +92,12 @@ static inline void Log(NSString * format, ...)
         CLAuthorizationStatus authorizationStatus = [CLLocationManager authorizationStatus];
         if (authorizationStatus == kCLAuthorizationStatusNotDetermined)
         {
+            Log(@"Requesting authorization");
             [_locationManager requestAlwaysAuthorization];
         }
         else if (authorizationStatus == kCLAuthorizationStatusAuthorizedAlways)
         {
+            Log(@"Already authorized - starting");
             [_locationManager startUpdatingLocation];
         }
     }
@@ -107,6 +109,7 @@ static inline void Log(NSString * format, ...)
     if (_enabled)
     {
         _enabled = NO;
+        Log(@"Stopping");
         [_locationManager stopUpdatingLocation];
     }
 }
@@ -127,13 +130,16 @@ didChangeAuthorizationStatus:(CLAuthorizationStatus)authorizationStatus
 {
     if (authorizationStatus == kCLAuthorizationStatusAuthorizedAlways)
     {
+        Log(@"Authorized");
         if (_enabled)
         {
+            Log(@"Starting");
             [_locationManager startUpdatingLocation];
         }
     }
     else
     {
+        Log(@"No authorized - stopping");
         [_locationManager stopUpdatingLocation];
     }
 }
@@ -154,9 +160,9 @@ didChangeAuthorizationStatus:(CLAuthorizationStatus)authorizationStatus
     // Get the last known location.
     CLLocation * location = [locations lastObject];
     
-    Log(@"Received location update (%u)", [locations count]);
-
-        
+    // Log.
+    Log(@"Location updated");
+    
     // Notify the delegate.
     if ([[self delegate] respondsToSelector:@selector(locationContext:didUpdateLocation:)])
     {

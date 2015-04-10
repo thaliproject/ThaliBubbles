@@ -234,16 +234,16 @@
         {
             // See if we have a peer annotation for this peer. If we do, update it and note that we processed it.
             // If we don't, create it and note that we added it.
-            TSNPeerAnnotation * peerAnnotation = [_peerAnnotations objectForKey:[peer peerName]];
+            TSNPeerAnnotation * peerAnnotation = [_peerAnnotations objectForKey:[peer identifier]];
             if (peerAnnotation)
             {
                 [peerAnnotation setCoordinate:[[peer location] coordinate]];
-                peerAnnotationsProcessed[[peer peerName]] = peerAnnotation;
+                peerAnnotationsProcessed[[peer identifier]] = peerAnnotation;
             }
             else
             {
                 peerAnnotation = [[TSNPeerAnnotation alloc] initWithPeer:peer];
-                peerAnnotationsAdded[[peer peerName]] = peerAnnotation;
+                peerAnnotationsAdded[[peer identifier]] = peerAnnotation;
             }
         }
         
@@ -251,10 +251,10 @@
         NSMutableDictionary * peerAnnotationsToRemove = [[NSMutableDictionary alloc] init];
         for (TSNPeerAnnotation * peerAnnotation in [_peerAnnotations allValues])
         {
-            NSString * peerName = [[peerAnnotation peer] peerName];
-            if (!peerAnnotationsProcessed[peerName] && !peerAnnotationsAdded[peerName])
+            NSString * peerIdentifier = [[peerAnnotation peer] identifier];
+            if (!peerAnnotationsProcessed[peerIdentifier] && !peerAnnotationsAdded[peerIdentifier])
             {
-                peerAnnotationsToRemove[peerName] = peerAnnotation;
+                peerAnnotationsToRemove[peerIdentifier] = peerAnnotation;
             }
         }
         

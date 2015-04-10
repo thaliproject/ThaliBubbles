@@ -36,7 +36,7 @@
     }
     
     _peer = peer;
-    title = [_peer peerName];
+    title = [_peer name];
     coordinate = [[_peer location] coordinate];
     
     // Done.

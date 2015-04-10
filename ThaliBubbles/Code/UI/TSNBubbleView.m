@@ -28,6 +28,7 @@
 #import <UIColor+Extensions.h>
 #import <UIView+Extensions.h>
 #import <TSNThreading.h>
+#import "TSNAppContext.h"
 #import "TSNBubbleView.h"
 
 // Centers one thing (a) within another (b).
@@ -236,7 +237,8 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSString * text = [_textField text];
     [_textField setText:nil];
-    NSLog(@"Sending: %@", text);
+    
+    [[TSNAppContext singleton] sendMessage:text];
 }
 
 // UIKeyboardWillShowNotification callback.

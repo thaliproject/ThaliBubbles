@@ -28,4 +28,7 @@ extern NSString * const TSNPeersUpdatedNotification;
 // Gets the peers.
 - (NSArray *)peers;
 
+// Sends a message.
+- (void)sendMessage:(NSString *)message;
+
 @end

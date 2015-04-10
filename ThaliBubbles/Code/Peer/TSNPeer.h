@@ -13,14 +13,16 @@
 @interface TSNPeer : NSObject
 
 // Properties.
-@property (nonatomic, readonly) NSString * peerName;
+@property (nonatomic, readonly) NSString * identifier;
+@property (nonatomic, readonly) NSString * name;
 @property (atomic) CLLocation * location;
 @property (atomic) CLLocationDistance disance;
 @property (atomic) NSDate * lastUpdated;
 
 // Class initializer.
-- (instancetype)initWithPeerName:(NSString *)peerName
-                        location:(CLLocation *)location
-                        distance:(CLLocationDistance)distance;
+- (instancetype)initWithIdentifier:(NSString *)peerIdentifier
+                              name:(NSString *)name
+                          location:(CLLocation *)location
+                          distance:(CLLocationDistance)distance;
 
 @end

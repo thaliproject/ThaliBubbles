@@ -1,7 +1,7 @@
 //
 //  The MIT License (MIT)
 //
-//  Copyright (c) 2015 Microsoft
+//  Copyright (c) 2015 Brian Lambert.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -21,7 +21,7 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 //
-//  ThaliBubbles
+//  BackgroundBLE
 //  TSNPeerBluetoothContextDelegate.h
 //
 
@@ -35,15 +35,22 @@
 
 // Notifies the delegate that a peer was connected.
 - (void)peerBluetoothContext:(TSNPeerBluetoothContext *)peerBluetoothContext
-        didConnectToPeerName:(NSString *)peerName;
+    didConnectPeerIdentifier:(NSUUID *)peerIdentifier
+                    peerName:(NSString *)peerName
+                peerLocation:(CLLocation *)peerLocation;
 
 // Notifies the delegate that a peer was disconnected.
 - (void)peerBluetoothContext:(TSNPeerBluetoothContext *)peerBluetoothContext
-   didDisconnectFromPeerName:(NSString *)peerName;
+ didDisconnectPeerIdentifier:(NSUUID *)peerIdentifier;
 
-// Notifies the delegate that a peer updated its location.
+// Notifies the delegate that a peer location was received.
 - (void)peerBluetoothContext:(TSNPeerBluetoothContext *)peerBluetoothContext
-          didReceiveLocation:(CLLocation *)location
-                 forPeerName:(NSString *)peerName;
+      didReceivePeerLocation:(CLLocation *)peerLocation
+          fromPeerIdentifier:(NSUUID *)peerIdentifier;
+
+// Notifies the delegate that a peer message was received.
+- (void)peerBluetoothContext:(TSNPeerBluetoothContext *)peerBluetoothContext
+       didReceivePeerMessage:(NSString *)peerMessage
+          fromPeerIdentifier:(NSUUID *)peerIdentifier;
 
 @end

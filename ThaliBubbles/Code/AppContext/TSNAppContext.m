@@ -49,9 +49,6 @@ NSString * const TSNPeersUpdatedNotification    = @"TSNPeersUpdated";
 // Class initializer.
 - (instancetype)init;
 
-// The updater thread entry point.
-- (void)threadUpdaterEntryPointWithObject:(id)object;
-
 @end
 
 // TSNAppContext implementation.
@@ -78,9 +75,6 @@ NSString * const TSNPeersUpdatedNotification    = @"TSNPeersUpdated";
     
     // The peers dictionary.
     NSMutableDictionary * _peers;
-    
-    // The updater thread.
-    NSThread * _threadUpdater;
 }
 
 // Singleton.
@@ -115,14 +109,6 @@ NSString * const TSNPeersUpdatedNotification    = @"TSNPeersUpdated";
         [_peerBluetoothContext start];
         //    [_peerNetworkingContext start];
         [_locationContext start];
-        
-        _threadUpdater = [[NSThread alloc] initWithTarget:self
-                                                 selector:@selector(threadUpdaterEntryPointWithObject:)
-                                                   object:nil];
-        [_threadUpdater setQualityOfService:NSQualityOfServiceBackground];
-        [_threadUpdater setName:@"org.thaliproject.thalibubblesaa"];
-//        [_threadUpdater setThreadPriority:0.75];
-        [_threadUpdater start];
     }
 }
 
@@ -151,6 +137,12 @@ NSString * const TSNPeersUpdatedNotification    = @"TSNPeersUpdated";
     return peers;
 }
 
+// Sends a message.
+- (void)sendMessage:(NSString *)message
+{
+    [_peerBluetoothContext sendMessage:message];
+}
+
 @end
 
 // TSNAppContext (TSNPeerBluetoothContextDelegate) implementation.
@@ -158,43 +150,22 @@ NSString * const TSNPeersUpdatedNotification    = @"TSNPeersUpdated";
 
 // Notifies the delegate that a peer was connected.
 - (void)peerBluetoothContext:(TSNPeerBluetoothContext *)peerBluetoothContext
-        didConnectToPeerName:(NSString *)peerName
+    didConnectPeerIdentifier:(NSUUID *)peerIdentifier
+                    peerName:(NSString *)peerName
+                peerLocation:(CLLocation *)peerLocation
 {
     // Allocate and initialize the peer.
-    TSNPeer * peer = [[TSNPeer alloc] initWithPeerName:peerName
-                                              location:nil
-                                              distance:0];
+    TSNPeer * peer = [[TSNPeer alloc] initWithIdentifier:[peerIdentifier UUIDString]
+                                                    name:peerName
+                                                location:peerLocation
+                                                distance:0];
     
-    // Lock.
-    pthread_mutex_lock(&_mutex);
-
-    // Set the peer in the peers dictionary.
-    [_peers setObject:peer
-               forKey:peerName];
-    
-    // Unlock.
-    pthread_mutex_unlock(&_mutex);
-    
-    if ([[UIApplication sharedApplication] applicationState] != UIApplicationStateActive)
-    {
-        UILocalNotification * localNotification = [[UILocalNotification alloc] init];
-        [localNotification setFireDate:[[NSDate alloc] init]];
-        [localNotification setAlertTitle:@"Connected"];
-        [localNotification setAlertBody:[NSString stringWithFormat:@"Connected to %@", peerName]];
-        [localNotification setSoundName:UILocalNotificationDefaultSoundName];
-        [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
-    }
-}
-
-// Notifies the delegate that a peer was disconnected.
-- (void)peerBluetoothContext:(TSNPeerBluetoothContext *)peerBluetoothContext
-   didDisconnectFromPeerName:(NSString *)peerName
-{
     // Lock.
     pthread_mutex_lock(&_mutex);
     
     // Set the peer in the peers dictionary.
-    [_peers removeObjectForKey:peerName];
+    [_peers setObject:peer
+               forKey:peerIdentifier];
     
     // Unlock.
     pthread_mutex_unlock(&_mutex);
@@ -202,28 +173,44 @@ NSString * const TSNPeersUpdatedNotification    = @"TSNPeersUpdated";
     // Post the TSNPeersUpdatedNotification so the rest of the app knows about the update.
     [[NSNotificationCenter defaultCenter] postNotificationName:TSNPeersUpdatedNotification
                                                         object:nil];
+}
 
-    if ([[UIApplication sharedApplication] applicationState] != UIApplicationStateActive)
+// Notifies the delegate that a peer was disconnected.
+- (void)peerBluetoothContext:(TSNPeerBluetoothContext *)peerBluetoothContext
+ didDisconnectPeerIdentifier:(NSUUID *)peerIdentifier
+{
+    // Lock.
+    pthread_mutex_lock(&_mutex);
+    
+    TSNPeer * peer = _peers[peerIdentifier];
+    if (peer)
     {
-        UILocalNotification * localNotification = [[UILocalNotification alloc] init];
-        [localNotification setFireDate:[[NSDate alloc] init]];
-        [localNotification setAlertTitle:@"Disconnected"];
-        [localNotification setAlertBody:[NSString stringWithFormat:@"Disconnected from %@.", peerName]];
-        [localNotification setSoundName:UILocalNotificationDefaultSoundName];
-        [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
+        [_peers removeObjectForKey:peerIdentifier];
     }
+
+    // Unlock.
+    pthread_mutex_unlock(&_mutex);
+    
+    if (!peer)
+    {
+        return;
+    }
+    
+    // Post the TSNPeersUpdatedNotification so the rest of the app knows about the update.
+    [[NSNotificationCenter defaultCenter] postNotificationName:TSNPeersUpdatedNotification
+                                                        object:nil];
 }
 
 // Notifies the delegate that a peer updated its location.
 - (void)peerBluetoothContext:(TSNPeerBluetoothContext *)peerBluetoothContext
-          didReceiveLocation:(CLLocation *)location
-                 forPeerName:(NSString *)peerName
+      didReceivePeerLocation:(CLLocation *)peerLocation
+          fromPeerIdentifier:(NSUUID *)peerIdentifier
 {
     // Lock.
     pthread_mutex_lock(&_mutex);
     
     // Get the peer. If we don't have it yet, ignore the location update.
-    TSNPeer * peer = [_peers objectForKey:peerName];
+    TSNPeer * peer = _peers[peerIdentifier];
     if (!peer)
     {
         pthread_mutex_unlock(&_mutex);
@@ -231,18 +218,45 @@ NSString * const TSNPeersUpdatedNotification    = @"TSNPeersUpdated";
     }
     
     // Update the peer's location and distance.
-    [peer setLocation:location];
-    [peer setDisance:[location distanceFromLocation:_location]];
+    [peer setLocation:peerLocation];
+    [peer setDisance:[peerLocation distanceFromLocation:_location]];
     [peer setLastUpdated:[[NSDate alloc] init]];
     
     // Unlock.
     pthread_mutex_unlock(&_mutex);
     
-    Log(@"Peer %@ updated location.", peerName);
-    
     // Post the TSNPeersUpdatedNotification so the rest of the app knows about the update.
     [[NSNotificationCenter defaultCenter] postNotificationName:TSNPeersUpdatedNotification
                                                         object:nil];
+}
+
+// Notifies the delegate that a peer message was received.
+- (void)peerBluetoothContext:(TSNPeerBluetoothContext *)peerBluetoothContext
+       didReceivePeerMessage:(NSString *)peerMessage
+          fromPeerIdentifier:(NSUUID *)peerIdentifier
+{
+    // Lock.
+    pthread_mutex_lock(&_mutex);
+    
+    TSNPeer * peer = _peers[peerIdentifier];
+
+    // Unlock.
+    pthread_mutex_unlock(&_mutex);
+
+    if (!peer)
+    {
+        return;
+    }
+
+    if ([[UIApplication sharedApplication] applicationState] != UIApplicationStateActive)
+    {
+        UILocalNotification * localNotification = [[UILocalNotification alloc] init];
+        [localNotification setFireDate:[[NSDate alloc] init]];
+        [localNotification setAlertTitle:@"Incoming Message"];
+        [localNotification setAlertBody:[NSString stringWithFormat:@"%@: %@", [peer name], peerMessage]];
+        [localNotification setSoundName:UILocalNotificationDefaultSoundName];
+        [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
+    }
 }
 
 @end
@@ -323,33 +337,6 @@ NSString * const TSNPeersUpdatedNotification    = @"TSNPeersUpdated";
 
     // Done.
     return self;
-}
-
-// The updater thread entry point.
-- (void)threadUpdaterEntryPointWithObject:(id)object
-{
-    // Run while we're connected.
-    while ([_atomicFlagEnabled isSet])
-    {
-        [NSThread sleepForTimeInterval:5.0];
-        
-        // Lock.
-        pthread_mutex_lock(&_mutex);
-        
-        // Update the location.
-        CLLocation * location = _location;
-        
-        // Unlock.
-        pthread_mutex_unlock(&_mutex);
-
-        if (location)
-        {
-            Log(@"Update!! location");
-
-            // Update our location in the peer Bluetooth context to share it with peers.
-            [_peerBluetoothContext updateLocation:location];
-        }
-    }
 }
 
 @end
