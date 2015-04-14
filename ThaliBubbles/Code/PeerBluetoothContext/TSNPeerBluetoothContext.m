@@ -132,8 +132,8 @@ typedef NS_ENUM(NSUInteger, TSNPeerDescriptorState)
 // Updates the peer location characteristic.
 - (void)updatePeerLocationCharacteristic;
 
-// Updates the peer message characteristic.
-- (void)updatePeerMessageCharacteristic:(NSString *)peerMessage;
+// Updates the peer status characteristic.
+- (void)updatePeerStatusCharacteristic:(NSString *)peerMessage;
 
 // Gets the peer location data.
 - (NSData *)peerLocationData;
@@ -170,8 +170,8 @@ typedef NS_ENUM(NSUInteger, TSNPeerDescriptorState)
     // The peer location type.
     CBUUID * _peerLocationType;
 
-    // The peer message type.
-    CBUUID * _peerMessageType;
+    // The peer status type.
+    CBUUID * _peerStatusType;
     
     // The service.
     CBMutableService * _service;
@@ -185,8 +185,8 @@ typedef NS_ENUM(NSUInteger, TSNPeerDescriptorState)
     // The peer locaton characteristic.
     CBMutableCharacteristic * _characteristicPeerLocation;
 
-    // The peer message characteristic.
-    CBMutableCharacteristic * _characteristicPeerMessage;
+    // The peer status characteristic.
+    CBMutableCharacteristic * _characteristicPeerStatus;
 
     // The advertising data.
     NSDictionary * _advertisingData;
@@ -262,8 +262,8 @@ typedef NS_ENUM(NSUInteger, TSNPeerDescriptorState)
     // Allocate and initialize the peer location type.
     _peerLocationType = [CBUUID UUIDWithString:@"1EA08229-38D7-4927-98EC-113723C30C1B"];
 
-    // Allocate and initialize the peer message type.
-    _peerMessageType = [CBUUID UUIDWithString:@"3211022A-EEF4-4522-A5CE-47E60342FFB5"];
+    // Allocate and initialize the peer status type.
+    _peerStatusType = [CBUUID UUIDWithString:@"3211022A-EEF4-4522-A5CE-47E60342FFB5"];
     
     // Allocate and initialize the service.
     _service = [[CBMutableService alloc] initWithType:_serviceType
@@ -287,17 +287,17 @@ typedef NS_ENUM(NSUInteger, TSNPeerDescriptorState)
                                                                       value:nil
                                                                 permissions:CBAttributePermissionsReadable];
 
-    // Allocate and initialize the peer message characteristic.
-    _characteristicPeerMessage = [[CBMutableCharacteristic alloc] initWithType:_peerMessageType
-                                                                    properties:CBCharacteristicPropertyNotify
-                                                                         value:nil
-                                                                   permissions:CBAttributePermissionsReadable];
+    // Allocate and initialize the peer status characteristic.
+    _characteristicPeerStatus = [[CBMutableCharacteristic alloc] initWithType:_peerStatusType
+                                                                   properties:CBCharacteristicPropertyNotify
+                                                                        value:nil
+                                                                  permissions:CBAttributePermissionsReadable];
 
     // Set the service characteristics.
     [_service setCharacteristics:@[_characteristicPeerID,
                                    _characteristicPeerName,
                                    _characteristicPeerLocation,
-                                   _characteristicPeerMessage]];
+                                   _characteristicPeerStatus]];
     
     // Allocate and initialize the advertising data.
     _advertisingData = @{CBAdvertisementDataServiceUUIDsKey:    @[_serviceType],
@@ -352,10 +352,10 @@ typedef NS_ENUM(NSUInteger, TSNPeerDescriptorState)
     [self updatePeerLocationCharacteristic];
 }
 
-// Sends a message.
-- (void)sendMessage:(NSString *)message
+// Updates the status.
+- (void)updateStatus:(NSString *)status
 {
-    [self updatePeerMessageCharacteristic:message];
+    [self updatePeerStatusCharacteristic:status];
 }
 
 @end
@@ -596,7 +596,7 @@ didDiscoverServices:(NSError *)error
             [peripheral discoverCharacteristics:@[_peerIDType,
                                                   _peerNameType,
                                                   _peerLocationType,
-                                                  _peerMessageType]
+                                                  _peerStatusType]
                                      forService:service];
         }
     }
@@ -627,9 +627,9 @@ didDiscoverCharacteristicsForService:(CBService *)service
                 Log(@"Reading peer location");
                 [peripheral readValueForCharacteristic:characteristic];
             }
-            else if ([[characteristic UUID] isEqual:_peerMessageType])
+            else if ([[characteristic UUID] isEqual:_peerStatusType])
             {
-                Log(@"Subscribing to peer message");
+                Log(@"Subscribing to peer status");
                 [peripheral setNotifyValue:YES
                          forCharacteristic:characteristic];
             }
@@ -667,20 +667,23 @@ didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic
     }
     else if ([[characteristic UUID] isEqual:_peerLocationType])
     {
-        Log(@"Read peer location");
-        CLLocationDegrees * latitude = (CLLocationDegrees *)[[characteristic value] bytes];
-        CLLocationDegrees * longitude = latitude + 1;
-        [peerDescriptor setPeerLocation:[[CLLocation alloc] initWithLatitude:*latitude
-                                                                   longitude:*longitude]];
-        
-        if ([peerDescriptor state] == TSNPeerDescriptorStateConnected && [[self delegate] respondsToSelector:@selector(peerBluetoothContext:didReceivePeerLocation:fromPeerIdentifier:)])
+        if ([[characteristic value] length] == sizeof(CLLocationDegrees) * 2)
         {
-            [[self delegate] peerBluetoothContext:self
-                           didReceivePeerLocation:[peerDescriptor peerLocation]
-                               fromPeerIdentifier:[peerDescriptor peerID]];
+            Log(@"Read peer location");
+            CLLocationDegrees * latitude = (CLLocationDegrees *)[[characteristic value] bytes];
+            CLLocationDegrees * longitude = latitude + 1;
+            [peerDescriptor setPeerLocation:[[CLLocation alloc] initWithLatitude:*latitude
+                                                                       longitude:*longitude]];
+            
+            if ([peerDescriptor state] == TSNPeerDescriptorStateConnected && [[self delegate] respondsToSelector:@selector(peerBluetoothContext:didReceivePeerLocation:fromPeerIdentifier:)])
+            {
+                [[self delegate] peerBluetoothContext:self
+                               didReceivePeerLocation:[peerDescriptor peerLocation]
+                                   fromPeerIdentifier:[peerDescriptor peerID]];
+            }
         }
     }
-    else if ([[characteristic UUID] isEqual:_peerMessageType])
+    else if ([[characteristic UUID] isEqual:_peerStatusType])
     {
         Log(@"Read peer message");
         if ([peerDescriptor state] == TSNPeerDescriptorStateConnected && [[self delegate] respondsToSelector:@selector(peerBluetoothContext:didReceivePeerMessage:fromPeerIdentifier:)])
@@ -766,13 +769,13 @@ didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic
     }
 }
 
-// Updates the peer message characteristic.
-- (void)updatePeerMessageCharacteristic:(NSString *)peerMessage
+// Updates the peer status characteristic.
+- (void)updatePeerStatusCharacteristic:(NSString *)peerMessage
 {
     if ([_atomicFlagEnabled isSet])
     {
         [_peripheralManager updateValue:[peerMessage dataUsingEncoding:NSUTF8StringEncoding]
-                      forCharacteristic:_characteristicPeerMessage
+                      forCharacteristic:_characteristicPeerStatus
                    onSubscribedCentrals:nil];
     }
 }

@@ -10,7 +10,7 @@
 		97CE6C8B995B6AE0706977FE /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C8577C46CE8D74B291AEEFC7 /* libPods.a */; };
 		D30207801AC2F2A300E70110 /* TSNBubbleView.m in Sources */ = {isa = PBXBuildFile; fileRef = D302077E1AC2F2A300E70110 /* TSNBubbleView.m */; };
 		D30207851AC2FAF700E70110 /* TSNSettingsView.m in Sources */ = {isa = PBXBuildFile; fileRef = D30207831AC2FAF700E70110 /* TSNSettingsView.m */; };
-		D30207891AC31EC200E70110 /* TSNBubbleViewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D30207871AC31EC200E70110 /* TSNBubbleViewTableViewCell.m */; };
+		D30207891AC31EC200E70110 /* TSNNearbyPeerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D30207871AC31EC200E70110 /* TSNNearbyPeerTableViewCell.m */; };
 		D302078D1AC36F2E00E70110 /* TSNAppContext.m in Sources */ = {isa = PBXBuildFile; fileRef = D302078C1AC36F2E00E70110 /* TSNAppContext.m */; };
 		D32FABE81AC4A1F8005C0AF4 /* CBPeripheralManager+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = D32FABE71AC4A1F8005C0AF4 /* CBPeripheralManager+Extensions.m */; };
 		D32FABF11AC4AB92005C0AF4 /* CBCentralManager+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = D32FABF01AC4AB92005C0AF4 /* CBCentralManager+Extensions.m */; };
@@ -24,6 +24,10 @@
 		D33935881AC9CEE7004B57BB /* TSNPeerAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = D33935871AC9CEE7004B57BB /* TSNPeerAnnotation.m */; };
 		D339358C1AC9DF1E004B57BB /* TSNPeer.m in Sources */ = {isa = PBXBuildFile; fileRef = D339358B1AC9DF1E004B57BB /* TSNPeer.m */; };
 		D36385BA1ACAE8C600BA95F1 /* CBPeripheral+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = D36385B91ACAE8C600BA95F1 /* CBPeripheral+Extensions.m */; };
+		D3BC5A0F1ADC11390053B073 /* TSNNearbyPeerEnteredTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D3BC5A0D1ADC11390053B073 /* TSNNearbyPeerEnteredTableViewCell.m */; };
+		D3BC5A131ADC1B490053B073 /* TSNNearbyPeerExitedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D3BC5A111ADC1B490053B073 /* TSNNearbyPeerExitedTableViewCell.m */; };
+		D3BC5A171ADC3D060053B073 /* TSNLocalPeerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D3BC5A151ADC3D060053B073 /* TSNLocalPeerTableViewCell.m */; };
+		D3BC5A1B1ADC40AF0053B073 /* TSNLocalPeerEnteredTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D3BC5A191ADC40AF0053B073 /* TSNLocalPeerEnteredTableViewCell.m */; };
 		D3D95F041AC58C7C00278A40 /* TSNPeerNetworkingContext.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D95F021AC58C7C00278A40 /* TSNPeerNetworkingContext.m */; };
 		D3D95F071AC58D1700278A40 /* TSNPeerBluetoothContext.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D95F061AC58D1700278A40 /* TSNPeerBluetoothContext.m */; };
 		D3D95F0E1AC71B1600278A40 /* TSNNearbyPeersView.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D95F0C1AC71B1600278A40 /* TSNNearbyPeersView.m */; };
@@ -41,9 +45,8 @@
 		D30207821AC2FAF700E70110 /* TSNSettingsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TSNSettingsView.h; path = Code/UI/TSNSettingsView.h; sourceTree = "<group>"; };
 		D30207831AC2FAF700E70110 /* TSNSettingsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TSNSettingsView.m; path = Code/UI/TSNSettingsView.m; sourceTree = "<group>"; };
 		D30207841AC2FAF700E70110 /* TSNSettingsViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TSNSettingsViewDelegate.h; path = Code/UI/TSNSettingsViewDelegate.h; sourceTree = "<group>"; };
-		D30207861AC31EC200E70110 /* TSNBubbleViewTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TSNBubbleViewTableViewCell.h; path = Code/UI/TSNBubbleViewTableViewCell.h; sourceTree = "<group>"; };
-		D30207871AC31EC200E70110 /* TSNBubbleViewTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TSNBubbleViewTableViewCell.m; path = Code/UI/TSNBubbleViewTableViewCell.m; sourceTree = "<group>"; };
-		D30207881AC31EC200E70110 /* TSNBubbleViewTableViewCellDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TSNBubbleViewTableViewCellDelegate.h; path = Code/UI/TSNBubbleViewTableViewCellDelegate.h; sourceTree = "<group>"; };
+		D30207861AC31EC200E70110 /* TSNNearbyPeerTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TSNNearbyPeerTableViewCell.h; path = Code/UI/TSNNearbyPeerTableViewCell.h; sourceTree = "<group>"; };
+		D30207871AC31EC200E70110 /* TSNNearbyPeerTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TSNNearbyPeerTableViewCell.m; path = Code/UI/TSNNearbyPeerTableViewCell.m; sourceTree = "<group>"; };
 		D302078B1AC36F2E00E70110 /* TSNAppContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TSNAppContext.h; path = Code/AppContext/TSNAppContext.h; sourceTree = "<group>"; };
 		D302078C1AC36F2E00E70110 /* TSNAppContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TSNAppContext.m; path = Code/AppContext/TSNAppContext.m; sourceTree = "<group>"; };
 		D32FABE61AC4A1F8005C0AF4 /* CBPeripheralManager+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "CBPeripheralManager+Extensions.h"; path = "Code/Extensions/CBPeripheralManager+Extensions.h"; sourceTree = "<group>"; };
@@ -70,6 +73,14 @@
 		D339358B1AC9DF1E004B57BB /* TSNPeer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TSNPeer.m; path = Code/Peer/TSNPeer.m; sourceTree = "<group>"; };
 		D36385B81ACAE8C600BA95F1 /* CBPeripheral+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "CBPeripheral+Extensions.h"; path = "Code/Extensions/CBPeripheral+Extensions.h"; sourceTree = "<group>"; };
 		D36385B91ACAE8C600BA95F1 /* CBPeripheral+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "CBPeripheral+Extensions.m"; path = "Code/Extensions/CBPeripheral+Extensions.m"; sourceTree = "<group>"; };
+		D3BC5A0C1ADC11390053B073 /* TSNNearbyPeerEnteredTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TSNNearbyPeerEnteredTableViewCell.h; path = Code/UI/TSNNearbyPeerEnteredTableViewCell.h; sourceTree = "<group>"; };
+		D3BC5A0D1ADC11390053B073 /* TSNNearbyPeerEnteredTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TSNNearbyPeerEnteredTableViewCell.m; path = Code/UI/TSNNearbyPeerEnteredTableViewCell.m; sourceTree = "<group>"; };
+		D3BC5A101ADC1B490053B073 /* TSNNearbyPeerExitedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TSNNearbyPeerExitedTableViewCell.h; path = Code/UI/TSNNearbyPeerExitedTableViewCell.h; sourceTree = "<group>"; };
+		D3BC5A111ADC1B490053B073 /* TSNNearbyPeerExitedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TSNNearbyPeerExitedTableViewCell.m; path = Code/UI/TSNNearbyPeerExitedTableViewCell.m; sourceTree = "<group>"; };
+		D3BC5A141ADC3D060053B073 /* TSNLocalPeerTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TSNLocalPeerTableViewCell.h; path = Code/UI/TSNLocalPeerTableViewCell.h; sourceTree = "<group>"; };
+		D3BC5A151ADC3D060053B073 /* TSNLocalPeerTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TSNLocalPeerTableViewCell.m; path = Code/UI/TSNLocalPeerTableViewCell.m; sourceTree = "<group>"; };
+		D3BC5A181ADC40AF0053B073 /* TSNLocalPeerEnteredTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TSNLocalPeerEnteredTableViewCell.h; path = Code/UI/TSNLocalPeerEnteredTableViewCell.h; sourceTree = "<group>"; };
+		D3BC5A191ADC40AF0053B073 /* TSNLocalPeerEnteredTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TSNLocalPeerEnteredTableViewCell.m; path = Code/UI/TSNLocalPeerEnteredTableViewCell.m; sourceTree = "<group>"; };
 		D3D95F011AC58C7C00278A40 /* TSNPeerNetworkingContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TSNPeerNetworkingContext.h; path = Code/PeerNetworkingContext/TSNPeerNetworkingContext.h; sourceTree = "<group>"; };
 		D3D95F021AC58C7C00278A40 /* TSNPeerNetworkingContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TSNPeerNetworkingContext.m; path = Code/PeerNetworkingContext/TSNPeerNetworkingContext.m; sourceTree = "<group>"; };
 		D3D95F031AC58C7C00278A40 /* TSNPeerNetworkingContextDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TSNPeerNetworkingContextDelegate.h; path = Code/PeerNetworkingContext/TSNPeerNetworkingContextDelegate.h; sourceTree = "<group>"; };
@@ -126,9 +137,16 @@
 				D302077D1AC2F2A300E70110 /* TSNBubbleView.h */,
 				D302077E1AC2F2A300E70110 /* TSNBubbleView.m */,
 				D302077F1AC2F2A300E70110 /* TSNBubbleViewDelegate.h */,
-				D30207861AC31EC200E70110 /* TSNBubbleViewTableViewCell.h */,
-				D30207871AC31EC200E70110 /* TSNBubbleViewTableViewCell.m */,
-				D30207881AC31EC200E70110 /* TSNBubbleViewTableViewCellDelegate.h */,
+				D3BC5A141ADC3D060053B073 /* TSNLocalPeerTableViewCell.h */,
+				D3BC5A151ADC3D060053B073 /* TSNLocalPeerTableViewCell.m */,
+				D3BC5A0C1ADC11390053B073 /* TSNNearbyPeerEnteredTableViewCell.h */,
+				D3BC5A0D1ADC11390053B073 /* TSNNearbyPeerEnteredTableViewCell.m */,
+				D3BC5A101ADC1B490053B073 /* TSNNearbyPeerExitedTableViewCell.h */,
+				D3BC5A111ADC1B490053B073 /* TSNNearbyPeerExitedTableViewCell.m */,
+				D30207861AC31EC200E70110 /* TSNNearbyPeerTableViewCell.h */,
+				D30207871AC31EC200E70110 /* TSNNearbyPeerTableViewCell.m */,
+				D3BC5A181ADC40AF0053B073 /* TSNLocalPeerEnteredTableViewCell.h */,
+				D3BC5A191ADC40AF0053B073 /* TSNLocalPeerEnteredTableViewCell.m */,
 			);
 			name = BubbleView;
 			sourceTree = "<group>";
@@ -453,6 +471,7 @@
 				D302078D1AC36F2E00E70110 /* TSNAppContext.m in Sources */,
 				D32FABE81AC4A1F8005C0AF4 /* CBPeripheralManager+Extensions.m in Sources */,
 				D33328231AC1D839009F3F9A /* main.m in Sources */,
+				D3BC5A131ADC1B490053B073 /* TSNNearbyPeerExitedTableViewCell.m in Sources */,
 				D33935881AC9CEE7004B57BB /* TSNPeerAnnotation.m in Sources */,
 				D33328351AC1D8E0009F3F9A /* TSNAppWindow.m in Sources */,
 				D32FABF51AC4B458005C0AF4 /* TSNLocationContext.m in Sources */,
@@ -460,15 +479,18 @@
 				D36385BA1ACAE8C600BA95F1 /* CBPeripheral+Extensions.m in Sources */,
 				D33328271AC1D880009F3F9A /* TSNAppDelegate.m in Sources */,
 				D339358C1AC9DF1E004B57BB /* TSNPeer.m in Sources */,
+				D3BC5A0F1ADC11390053B073 /* TSNNearbyPeerEnteredTableViewCell.m in Sources */,
 				D3F583B91AC1BE7000479CEE /* ThaliBubbles.xcdatamodeld in Sources */,
 				D33328311AC1D8C8009F3F9A /* TSNAppViewController.m in Sources */,
 				D32FABF11AC4AB92005C0AF4 /* CBCentralManager+Extensions.m in Sources */,
 				D333282C1AC1D8B0009F3F9A /* TSNAppView.m in Sources */,
 				D3D95F071AC58D1700278A40 /* TSNPeerBluetoothContext.m in Sources */,
-				D30207891AC31EC200E70110 /* TSNBubbleViewTableViewCell.m in Sources */,
+				D30207891AC31EC200E70110 /* TSNNearbyPeerTableViewCell.m in Sources */,
 				D3D95F041AC58C7C00278A40 /* TSNPeerNetworkingContext.m in Sources */,
+				D3BC5A171ADC3D060053B073 /* TSNLocalPeerTableViewCell.m in Sources */,
 				D3D95F111AC72A6100278A40 /* TSNMeAnnotation.m in Sources */,
 				D3D95F0E1AC71B1600278A40 /* TSNNearbyPeersView.m in Sources */,
+				D3BC5A1B1ADC40AF0053B073 /* TSNLocalPeerEnteredTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

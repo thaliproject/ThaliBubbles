@@ -12,6 +12,8 @@
 // External declarations.
 extern NSString * const TSNLocationUpdatedNotification;
 extern NSString * const TSNPeersUpdatedNotification;
+extern NSString * const TSNPeerEnteredNotification;
+extern NSString * const TSNPeerExitedNotification;
 
 // TSNAppContext interface.
 @interface TSNAppContext : NSObject
@@ -28,7 +30,7 @@ extern NSString * const TSNPeersUpdatedNotification;
 // Gets the peers.
 - (NSArray *)peers;
 
-// Sends a message.
-- (void)sendMessage:(NSString *)message;
+// Updates status.
+- (void)updateStatus:(NSString *)status;
 
 @end

@@ -139,7 +139,7 @@
                                                              NSForegroundColorAttributeName:    highlightTintColor};
 
     // Allocate and initialize the nearby peers tab bar item.
-    _tabBarItemNearbyPeers = [[UITabBarItem alloc] initWithTitle:@"NeabyPeers"
+    _tabBarItemNearbyPeers = [[UITabBarItem alloc] initWithTitle:@"Nearby Peers"
                                                            image:[UIImage imageNamed:@"NearbyPeers"]
                                                              tag:0];
     [_tabBarItemBubble setTitleTextAttributes:normalTabBarItemTitleTextAttributes

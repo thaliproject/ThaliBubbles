@@ -30,6 +30,8 @@ static inline void Log(NSString * format, ...)
 // External definitions.
 NSString * const TSNLocationUpdatedNotification = @"TSNLocationUpdated";
 NSString * const TSNPeersUpdatedNotification    = @"TSNPeersUpdated";
+NSString * const TSNPeerEnteredNotification     = @"TSNPeerEntered";
+NSString * const TSNPeerExitedNotification      = @"TSNPeerExited";
 
 // TSNAppContext (TSNPeerBluetoothContextDelegate) interface.
 @interface TSNAppContext (TSNPeerBluetoothContextDelegate) <TSNPeerBluetoothContextDelegate>
@@ -137,10 +139,10 @@ NSString * const TSNPeersUpdatedNotification    = @"TSNPeersUpdated";
     return peers;
 }
 
-// Sends a message.
-- (void)sendMessage:(NSString *)message
+// Updates status.
+- (void)updateStatus:(NSString *)status
 {
-    [_peerBluetoothContext sendMessage:message];
+    [_peerBluetoothContext updateStatus:status];
 }
 
 @end
@@ -170,9 +172,16 @@ NSString * const TSNPeersUpdatedNotification    = @"TSNPeersUpdated";
     // Unlock.
     pthread_mutex_unlock(&_mutex);
     
+    // Get the notification center.
+    NSNotificationCenter * notificationCenter = [NSNotificationCenter defaultCenter];
+    
+    // Post the TSNPeerEntered notification.
+    [notificationCenter postNotificationName:TSNPeerEnteredNotification
+                                      object:peer];
+    
     // Post the TSNPeersUpdatedNotification so the rest of the app knows about the update.
-    [[NSNotificationCenter defaultCenter] postNotificationName:TSNPeersUpdatedNotification
-                                                        object:nil];
+    [notificationCenter postNotificationName:TSNPeersUpdatedNotification
+                                      object:nil];
 }
 
 // Notifies the delegate that a peer was disconnected.
@@ -195,10 +204,17 @@ NSString * const TSNPeersUpdatedNotification    = @"TSNPeersUpdated";
     {
         return;
     }
+
+    // Get the notification center.
+    NSNotificationCenter * notificationCenter = [NSNotificationCenter defaultCenter];
+    
+    // Post the TSNPeerEntered notification.
+    [notificationCenter postNotificationName:TSNPeerExitedNotification
+                                      object:peer];
     
     // Post the TSNPeersUpdatedNotification so the rest of the app knows about the update.
-    [[NSNotificationCenter defaultCenter] postNotificationName:TSNPeersUpdatedNotification
-                                                        object:nil];
+    [notificationCenter postNotificationName:TSNPeersUpdatedNotification
+                                      object:nil];
 }
 
 // Notifies the delegate that a peer updated its location.

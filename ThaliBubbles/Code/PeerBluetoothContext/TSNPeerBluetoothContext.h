@@ -47,7 +47,7 @@
 // Updates the location.
 - (void)updateLocation:(CLLocation *)location;
 
-// Sends a message.
-- (void)sendMessage:(NSString *)message;
+// Updates the status.
+- (void)updateStatus:(NSString *)status;
 
 @end

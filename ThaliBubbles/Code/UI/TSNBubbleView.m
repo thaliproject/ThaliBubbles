@@ -30,6 +30,9 @@
 #import <TSNThreading.h>
 #import "TSNAppContext.h"
 #import "TSNBubbleView.h"
+#import "TSNLocalPeerEnteredTableViewCell.h"
+#import "TSNNearbyPeerEnteredTableViewCell.h"
+#import "TSNNearbyPeerExitedTableViewCell.h"
 
 // Centers one thing (a) within another (b).
 CG_INLINE CGFloat Center(CGFloat a, CGFloat b)
@@ -50,6 +53,12 @@ CG_INLINE CGFloat Center(CGFloat a, CGFloat b)
 
 // buttonSendMessageTouchUpInside action.
 - (void)buttonSendMessageTouchUpInsideAction:(UIButton *)sender;
+
+// TSNPeerEnteredNotification callback.
+- (void)peerEnteredNotificationCallback:(NSNotification *)notification;
+
+// TSNPeerExitedNotification callback.
+- (void)peerExitedNotificationCallback:(NSNotification *)notification;
 
 // UIKeyboardWillShowNotification callback.
 - (void)keyboardWillShowNotificationCallback:(NSNotification *)notification;
@@ -74,6 +83,9 @@ CG_INLINE CGFloat Center(CGFloat a, CGFloat b)
     
     // The send button.
     UIButton * _buttonSend;
+    
+    // The bubble table view cells array.
+    NSMutableArray * _bubbleTableViewCells;
 }
 
 // Class initializer.
@@ -141,8 +153,21 @@ CG_INLINE CGFloat Center(CGFloat a, CGFloat b)
           forControlEvents:UIControlEventTouchUpInside];
     [_viewContainer addSubview:_buttonSend];
     
+    _bubbleTableViewCells = [[NSMutableArray alloc] init];
+    
+    TSNLocalPeerEnteredTableViewCell * localPeerEnteredTableViewCell = [[TSNLocalPeerEnteredTableViewCell alloc] init];
+    [_bubbleTableViewCells addObject:localPeerEnteredTableViewCell];
+    
     // Add our observers.
     NSNotificationCenter * notificationCenter = [NSNotificationCenter defaultCenter];
+    [notificationCenter addObserver:self
+                           selector:@selector(peerEnteredNotificationCallback:)
+                               name:TSNPeerEnteredNotification
+                             object:nil];
+    [notificationCenter addObserver:self
+                           selector:@selector(peerExitedNotificationCallback:)
+                               name:TSNPeerExitedNotification
+                             object:nil];
     [notificationCenter addObserver:self
                            selector:@selector(keyboardWillShowNotificationCallback:)
                                name:UIKeyboardWillShowNotification
@@ -178,14 +203,14 @@ CG_INLINE CGFloat Center(CGFloat a, CGFloat b)
 - (NSInteger)tableView:(UITableView *)tableView
  numberOfRowsInSection:(NSInteger)section
 {
-    return 0;
+    return [_bubbleTableViewCells count];
 }
 
 // Returns the cell to insert in a particular location of the table view.
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return nil;
+    return _bubbleTableViewCells[[indexPath row]];
 }
 
 @end
@@ -193,32 +218,11 @@ CG_INLINE CGFloat Center(CGFloat a, CGFloat b)
 // TSNBubbleView (UITableViewDelegate) implementation.
 @implementation TSNBubbleView (UITableViewDelegate)
 
-// Returns the height to use for the header of a particular section.
-- (CGFloat)tableView:(UITableView *)tableView
-heightForHeaderInSection:(NSInteger)section
-{
-    return 0.0;
-}
-
-// Returns the height to use for the footer of a particular section.
-- (CGFloat)tableView:(UITableView *)tableView
-heightForFooterInSection:(NSInteger)section
-{
-    return 0.0;
-}
-
-// Returns the view to display in the header of the specified section of the table view.
-- (UIView *)tableView:(UITableView *)tableView
-viewForHeaderInSection:(NSInteger)section
-{
-    return nil;
-}
-
 // Returns the height to use for a row in a specified location.
 - (CGFloat)tableView:(UITableView *)tableView
 heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 40;
+    return [_bubbleTableViewCells[[indexPath row]] height];
 }
 
 // Called when a row is selected.
@@ -235,10 +239,54 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath
 // buttonSendMessageTouchUpInside action.
 - (void)buttonSendMessageTouchUpInsideAction:(UIButton *)sender
 {
+    // Obtain the text from the text field and clear it out.
     NSString * text = [_textField text];
     [_textField setText:nil];
     
-    [[TSNAppContext singleton] sendMessage:text];
+    // Update our status.
+    [[TSNAppContext singleton] updateStatus:text];
+}
+
+// TSNPeerEnteredNotification callback.
+- (void)peerEnteredNotificationCallback:(NSNotification *)notification
+{
+    OnMainThread(^{
+        TSNPeer * peer = [notification object];
+        
+        TSNNearbyPeerEnteredTableViewCell * peerEnteredTableViewCell = [[TSNNearbyPeerEnteredTableViewCell alloc] initWithPeer:peer];
+        [_bubbleTableViewCells addObject:peerEnteredTableViewCell];
+        
+        NSIndexPath * indexPath = [NSIndexPath indexPathForRow:[_bubbleTableViewCells count] - 1
+                                                     inSection:0];
+
+        [_tableView insertRowsAtIndexPaths:@[indexPath]
+                          withRowAnimation:UITableViewRowAnimationAutomatic];
+
+        [_tableView scrollToRowAtIndexPath:indexPath
+                          atScrollPosition:UITableViewScrollPositionBottom
+                                  animated:YES];
+    });
+}
+
+// TSNPeerExitedNotification callback.
+- (void)peerExitedNotificationCallback:(NSNotification *)notification
+{
+    OnMainThread(^{
+        TSNPeer * peer = [notification object];
+        
+        TSNNearbyPeerExitedTableViewCell * peerExitedTableViewCell = [[TSNNearbyPeerExitedTableViewCell alloc] initWithPeer:peer];
+        [_bubbleTableViewCells addObject:peerExitedTableViewCell];
+
+        NSIndexPath * indexPath = [NSIndexPath indexPathForRow:[_bubbleTableViewCells count] - 1
+                                                     inSection:0];
+
+        [_tableView insertRowsAtIndexPaths:@[indexPath]
+                          withRowAnimation:UITableViewRowAnimationAutomatic];
+        
+        [_tableView scrollToRowAtIndexPath:indexPath
+                          atScrollPosition:UITableViewScrollPositionBottom
+                                  animated:YES];
+    });
 }
 
 // UIKeyboardWillShowNotification callback.
@@ -256,6 +304,13 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath
     
     [_viewContainer setFrame:CGRectMake(0.0, 0.0, [self width], [self height] - containerViewShrinkHeight)];
     
+    NSIndexPath * indexPath = [NSIndexPath indexPathForRow:[_bubbleTableViewCells count] - 1
+                                                 inSection:0];
+    
+    [_tableView scrollToRowAtIndexPath:indexPath
+                      atScrollPosition:UITableViewScrollPositionBottom
+                              animated:YES];
+    
     [UIView commitAnimations];
 }
 
@@ -269,6 +324,14 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath
     [UIView setAnimationCurve:[dictionary[UIKeyboardAnimationCurveUserInfoKey] unsignedIntegerValue]];
     [UIView setAnimationBeginsFromCurrentState:YES];
     [_viewContainer setFrame:[self bounds]];
+
+    NSIndexPath * indexPath = [NSIndexPath indexPathForRow:[_bubbleTableViewCells count] - 1
+                                                 inSection:0];
+    
+    [_tableView scrollToRowAtIndexPath:indexPath
+                      atScrollPosition:UITableViewScrollPositionBottom
+                              animated:YES];
+
     [UIView commitAnimations];
 }
 
